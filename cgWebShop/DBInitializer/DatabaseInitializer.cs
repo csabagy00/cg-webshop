@@ -15,6 +15,9 @@ public static class DatabaseInitializer
             using (var connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
+                
+                CreateDatabase();
+                
                 CreateProducts(connection);
                 CreateUsers(connection);
                 CreateOrders(connection);
@@ -34,13 +37,37 @@ public static class DatabaseInitializer
         }
     }
     
+    private static void CreateDatabase()
+    {
+        try
+        {
+            string connectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres";
+
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+            
+                string createDatabase = "CREATE DATABASE cgwebshop";
+
+                using (var command = new NpgsqlCommand(createDatabase, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error creating:" + e.Message);
+        }
+    }
+    
     
 
     private static void CreateProducts(NpgsqlConnection connection)
     {
         string create = "CREATE TABLE products (" +
                         "product_id SERIAL PRIMARY KEY," +
-                        "category_id FOREIGN KEY NOT NULL," +
+                        "category_id INT NOT NULL," +
                         "product_name VARCHAR(20) NOT NULL ," +
                         "in_stock INT NOT NULL," +
                         "price INT NOT NULL ," +
@@ -69,8 +96,8 @@ public static class DatabaseInitializer
     {
         string create = "CREATE TABLE orders (" +
                         "order_id SERIAL PRIMARY KEY," +
-                        "product_id FOREIGN KEY NOT NULL," +
-                        "user_id FOREIGN KEY NOT NULL," +
+                        "product_id INT NOT NULL," +
+                        "user_id INT NOT NULL," +
                         "order_date DATE NOT NULL," +
                         "ship_address VARCHAR(50)," +
                         "ship_city VARCHAR(50)," +
@@ -147,7 +174,6 @@ public static class DatabaseInitializer
         
         ExecuteSqlCommand(insert, connection);
     }
-
     
     private static void ExecuteSqlCommand(string sqlCommand, NpgsqlConnection connection)
     {
