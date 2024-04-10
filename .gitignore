@@ -21,3 +21,11 @@ Thumbs.db
 # Ignore logs and temporary files
 /logs
 /tmp
+
+# Compiled files
+bin/
+obj/
+
+# NuGet
+*.nuget/
+*.nupkg
