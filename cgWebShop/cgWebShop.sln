@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cgWebShopApi", "cgWebShopApi\cgWebShopApi.csproj", "{30478F8E-0F85-4AC6-BC4C-A880CF4FCFC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBInitializer", "DBInitializer\DBInitializer.csproj", "{3E0ED42A-30F6-44F2-8FCE-F17E71F6B25E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{30478F8E-0F85-4AC6-BC4C-A880CF4FCFC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30478F8E-0F85-4AC6-BC4C-A880CF4FCFC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30478F8E-0F85-4AC6-BC4C-A880CF4FCFC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E0ED42A-30F6-44F2-8FCE-F17E71F6B25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E0ED42A-30F6-44F2-8FCE-F17E71F6B25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E0ED42A-30F6-44F2-8FCE-F17E71F6B25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E0ED42A-30F6-44F2-8FCE-F17E71F6B25E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
