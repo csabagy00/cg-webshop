@@ -9,14 +9,15 @@ namespace cgWebShopApi.Controllers;
 [Route("[controller]")]
 public class ProductsController : ControllerBase
 {
-    private string ConnectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=cgwebshop";
+    private readonly string ConnectionString;
     private readonly ILogger<ProductsController> _logger;
     private readonly IProductsRepository _productsRepository;
 
-    public ProductsController(ILogger<ProductsController> logger, IProductsRepository productsRepository)
+    public ProductsController(ILogger<ProductsController> logger)
     {
+        ConnectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=cgwebshop";
         _logger = logger;
-        _productsRepository = productsRepository;
+        _productsRepository = new ProductsRepository(new NpgsqlConnection(ConnectionString));
     }
 
     [HttpGet]

@@ -23,25 +23,30 @@ public class ProductsRepository : IProductsRepository
 
         var dataSet = new DataSet();
         adapter.Fill(dataSet);
+        
         var table = dataSet.Tables[0];
 
         var queryResult = new List<Product>();
 
         foreach (DataRow row in table.Rows)
         {
-            queryResult.Add(new Product
+            Console.WriteLine((int)row["product_id"]);
+
+            var product = new Product
             {
                 Id = (int)row["product_id"],
-                Category = _categories[(int)row["category_id"]],
                 Name = (string)row["product_name"],
+                Category = _categories[(int)row["category_id"]],
                 InStock = (int)row["in_stock"],
                 Price = (int)row["price"],
-                Img = (string?)row["img"]
-            });
+                Img = row["img"] is System.DBNull ? null : (string)row["img"]
+            };
+            
+            queryResult.Add(product);
         }
-        
-        _connection.Close();
 
+        _connection.Close();
+        
         return queryResult;
     }
 }
