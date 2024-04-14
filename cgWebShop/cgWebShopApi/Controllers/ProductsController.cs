@@ -33,4 +33,18 @@ public class ProductsController : ControllerBase
             throw;
         }
     }
+
+    [HttpGet("id")]
+    public ActionResult<Product> GetProductById(int id)
+    {
+        try
+        {
+            return Ok(_productsRepository.GetProductById(id));
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error getting product with {id} ID: {e.Message}");
+            throw;
+        }
+    }
 }

@@ -49,4 +49,32 @@ public class ProductsRepository : IProductsRepository
         
         return queryResult;
     }
+
+
+    public Product GetProductById(int id)
+    {
+        _connection.Open();
+        var adapter = new NpgsqlDataAdapter($"SELECT * FROM products WHERE product_id = {id}", _connection);
+
+        var dataSet = new DataSet();
+        adapter.Fill(dataSet);
+
+        var table = dataSet.Tables[0];
+
+        var row = table.Rows[0];
+
+        var product = new Product
+        {
+            Id = (int)row["product_id"],
+            Name = (string)row["product_name"],
+            Category = _categories[(int)row["category_id"]],
+            InStock = (int)row["in_stock"],
+            Price = (int)row["price"],
+            Img = row["img"] is System.DBNull ? null : (string)row["img"]
+        };
+        
+        _connection.Close();
+
+        return product;
+    }
 }
