@@ -1,5 +1,6 @@
 using cgWebShopApi.Controllers;
 using cgWebShopApi.Respositories;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<NpgsqlConnection>();
 //builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
 
 var app = builder.Build();
