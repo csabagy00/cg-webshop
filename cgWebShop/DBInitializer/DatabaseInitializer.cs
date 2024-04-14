@@ -12,11 +12,11 @@ public static class DatabaseInitializer
     {
         try
         {
+            CreateDatabase();
+            
             using (var connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
-                
-                CreateDatabase();
                 
                 CreateProducts(connection);
                 CreateUsers(connection);
