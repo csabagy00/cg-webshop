@@ -36,7 +36,7 @@ public class ProductsRepository : IProductsRepository
             {
                 Id = (int)row["product_id"],
                 Name = (string)row["product_name"],
-                Category = _categories[(int)row["category_id"]],
+                Category = _categories[(int)row["category_id"] - 1],
                 InStock = (int)row["in_stock"],
                 Price = (int)row["price"],
                 Img = row["img"] is System.DBNull ? null : (string)row["img"]
@@ -67,7 +67,7 @@ public class ProductsRepository : IProductsRepository
         {
             Id = (int)row["product_id"],
             Name = (string)row["product_name"],
-            Category = _categories[(int)row["category_id"]],
+            Category = _categories[(int)row["category_id"] - 1],
             InStock = (int)row["in_stock"],
             Price = (int)row["price"],
             Img = row["img"] is System.DBNull ? null : (string)row["img"]
