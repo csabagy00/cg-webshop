@@ -36,11 +36,12 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("id")]
-    public ActionResult<Product> GetProductById(int id)
+    public async Task<ActionResult<Product>> GetProductById(int id)
     {
         try
         {
-            return Ok(_productsRepository.GetProductById(id));
+            var product = await _productsRepository.GetProductById(id);
+            return Ok(product);
         }
         catch (Exception e)
         {
