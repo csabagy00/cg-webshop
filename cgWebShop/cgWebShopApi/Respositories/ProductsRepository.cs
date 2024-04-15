@@ -16,13 +16,13 @@ public class ProductsRepository : IProductsRepository
     }
         
     
-    public List<Product> GetAllProducts()
+    public async Task<List<Product>> GetAllProducts()
     {
-        _connection.Open();
+        await _connection.OpenAsync();
         var adapter = new NpgsqlDataAdapter("SELECT * FROM products", _connection);
 
         var dataSet = new DataSet();
-        adapter.Fill(dataSet);
+        await Task.Run(() => adapter.Fill(dataSet));
         
         var table = dataSet.Tables[0];
 
@@ -45,7 +45,7 @@ public class ProductsRepository : IProductsRepository
             queryResult.Add(product);
         }
 
-        _connection.Close();
+        await _connection.CloseAsync();
         
         return queryResult;
     }
