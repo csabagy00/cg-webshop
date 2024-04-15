@@ -6,5 +6,5 @@ public interface IProductsRepository
 {
     Task<List<Product>> GetAllProducts();
 
-    Product GetProductById(int id);
+    Task<Product> GetProductById(int id);
 }

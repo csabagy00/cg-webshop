@@ -51,13 +51,13 @@ public class ProductsRepository : IProductsRepository
     }
 
 
-    public Product GetProductById(int id)
+    public async Task<Product> GetProductById(int id)
     {
-        _connection.Open();
+        await _connection.OpenAsync();
         var adapter = new NpgsqlDataAdapter($"SELECT * FROM products WHERE product_id = {id}", _connection);
 
         var dataSet = new DataSet();
-        adapter.Fill(dataSet);
+        await Task.Run(() => adapter.Fill(dataSet));
 
         var table = dataSet.Tables[0];
 
@@ -73,7 +73,7 @@ public class ProductsRepository : IProductsRepository
             Img = row["img"] is System.DBNull ? null : (string)row["img"]
         };
         
-        _connection.Close();
+        await _connection.CloseAsync();
 
         return product;
     }
