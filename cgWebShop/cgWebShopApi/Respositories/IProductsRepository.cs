@@ -7,4 +7,6 @@ public interface IProductsRepository
     Task<List<Product>> GetAllProducts();
 
     Task<Product> GetProductById(int id);
+
+    Task AddNewProduct(Product product);
 }

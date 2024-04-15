@@ -55,6 +55,8 @@ public class ProductsController : ControllerBase
     {
         try
         {
+            await _productsRepository.AddNewProduct(product);
+            
             return Ok(product);
         }
         catch (Exception e)

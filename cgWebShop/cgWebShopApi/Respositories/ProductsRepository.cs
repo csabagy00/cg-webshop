@@ -77,4 +77,25 @@ public class ProductsRepository : IProductsRepository
 
         return product;
     }
+
+    public async Task AddNewProduct(Product product)
+    {
+        await _connection.OpenAsync();
+
+        string query = $"INSERT INTO products (category_id, product_name, in_stock, price, img) VALUES" +
+                       $"(@CategoryId, @ProductName, @InStock, @Price, @Img)";
+        
+        await using (NpgsqlCommand command = new NpgsqlCommand(query, _connection))
+        {
+            command.Parameters.AddWithValue("@CategoryId", Array.IndexOf(Enum.GetValues(typeof(Category)), product.Category));
+            command.Parameters.AddWithValue("@ProductName", product.Name);
+            command.Parameters.AddWithValue("@InStock", product.InStock);
+            command.Parameters.AddWithValue("@Price", product.Price);
+            command.Parameters.AddWithValue("@Img", string.IsNullOrEmpty(product.Img) ? DBNull.Value : product.Img);
+            
+            await command.ExecuteNonQueryAsync();
+        }
+
+        await _connection.CloseAsync();
+    }
 }
