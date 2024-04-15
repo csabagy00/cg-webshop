@@ -49,4 +49,18 @@ public class ProductsController : ControllerBase
             throw;
         }
     }
+
+    [HttpPost]
+    public async Task<ActionResult<Product>> AddNewProduct(Product product)
+    {
+        try
+        {
+            return Ok(product);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error posting new product: {e.Message}");
+            throw;
+        }
+    }
 }
