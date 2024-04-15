@@ -21,11 +21,12 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Product>> GetProducts()
+    public async Task<ActionResult<List<Product>>> GetProducts()
     {
         try
         {
-            return Ok(_productsRepository.GetAllProducts());
+            var products = await _productsRepository.GetAllProducts();
+            return Ok(products);
         }
         catch (Exception e)
         {
