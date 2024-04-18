@@ -98,4 +98,21 @@ public class ProductsRepository : IProductsRepository
 
         await _connection.CloseAsync();
     }
+
+    public async Task DeleteOneProduct(int id)
+    {
+        await _connection.OpenAsync();
+
+        string query = $"DELETE FROM products WHERE product_id = @Id";
+
+        await using (NpgsqlCommand command = new NpgsqlCommand(query, _connection))
+        {
+            command.Parameters.AddWithValue("@Id", id);
+
+            await command.ExecuteNonQueryAsync();
+        }
+
+        await _connection.CloseAsync();
+    }
+    
 }
