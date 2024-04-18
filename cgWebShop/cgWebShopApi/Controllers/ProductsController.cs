@@ -65,4 +65,20 @@ public class ProductsController : ControllerBase
             throw;
         }
     }
+
+    [HttpDelete]
+    public async Task<ActionResult<Product>> DeleteProductById(int id)
+    {
+        try
+        {
+            await _productsRepository.DeleteOneProduct(id);
+            
+            return Ok(id);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error deleting the product: {e.Message}");
+            throw;
+        }
+    }
 }
