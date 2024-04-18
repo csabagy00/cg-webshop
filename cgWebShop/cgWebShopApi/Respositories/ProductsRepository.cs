@@ -114,5 +114,27 @@ public class ProductsRepository : IProductsRepository
 
         await _connection.CloseAsync();
     }
+
+    public async Task UpdateProductById(int id, Product product)
+    {
+        await _connection.OpenAsync();
+
+        string query = $"UPDATE products SET category_id = @CategoryId, product_name = @Name, in_stock = @InStock, " +
+                       $"price = @Price, img = @Img WHERE product_id = @ProductId";
+
+        await using (NpgsqlCommand command = new NpgsqlCommand(query, _connection))
+        {
+            command.Parameters.AddWithValue("@CategoryId", Array.IndexOf(Enum.GetValues(typeof(Category)), product.Category));
+            command.Parameters.AddWithValue("@Name", product.Name);
+            command.Parameters.AddWithValue("@InStock", product.InStock);
+            command.Parameters.AddWithValue("@Price", product.Price);
+            command.Parameters.AddWithValue("@Img", string.IsNullOrEmpty(product.Img) ? DBNull.Value : product.Img);
+            command.Parameters.AddWithValue("@ProductId", id);
+
+            await command.ExecuteNonQueryAsync();
+        }
+
+        await _connection.CloseAsync();
+    }
     
 }
