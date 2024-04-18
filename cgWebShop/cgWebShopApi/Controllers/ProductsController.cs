@@ -81,4 +81,20 @@ public class ProductsController : ControllerBase
             throw;
         }
     }
+
+    [HttpPatch]
+    public async Task<ActionResult<Product>> PatchProductById(int id, Product product)
+    {
+        try
+        {
+            await _productsRepository.UpdateProductById(id, product);
+            
+            return Ok(product);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error updating product with id {id}: {e.Message}");
+            throw;
+        }
+    }
 }
