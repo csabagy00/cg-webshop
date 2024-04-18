@@ -9,4 +9,6 @@ public interface IProductsRepository
     Task<Product> GetProductById(int id);
 
     Task AddNewProduct(Product product);
+
+    Task DeleteOneProduct(int id);
 }
