@@ -1,5 +1,8 @@
 using cgWebShopApi.Controllers;
+using cgWebShopApi.Data;
+using cgWebShopApi.Models;
 using cgWebShopApi.Respositories;
+using Microsoft.AspNetCore.Identity;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<NpgsqlConnection>();
 //builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
+
+
+builder.Services.AddIdentityCore<AppUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<CgShopContext>();
 
 var app = builder.Build();
 
