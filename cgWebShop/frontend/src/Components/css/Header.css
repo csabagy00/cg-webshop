@@ -6,3 +6,8 @@
   padding: 20px 40px;
   margin: -8px;
 }
+
+.nav-content {
+  display: flex;
+}
+
