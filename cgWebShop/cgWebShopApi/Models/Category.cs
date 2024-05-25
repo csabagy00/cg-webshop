@@ -1,8 +1,7 @@
 namespace cgWebShopApi.Models;
 
-public enum Category
+public class Category
 {
-    Tech,
-    Garden,
-    Home
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
