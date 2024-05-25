@@ -38,6 +38,7 @@ public class AuthenticationSeeder
         {
             var admin = new AppUser
             {
+                Email = "admin@admin.com",
                 UserName = "admin", 
                 FirstName = "Admin", 
                 MiddleName = null, 
