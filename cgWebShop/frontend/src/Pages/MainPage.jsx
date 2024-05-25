@@ -7,7 +7,6 @@ function MainPage(){
 
   return(
     <>
-      <Header />
       <div>
         <p>Main</p>
       </div>
