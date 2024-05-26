@@ -20,7 +20,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+/////Services/////
 builder.Services.AddScoped<AuthenticationSeeder>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 //builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 //builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
 
