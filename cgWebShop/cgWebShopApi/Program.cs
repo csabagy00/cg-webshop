@@ -12,17 +12,15 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-IConfigurationRoot configurationRoot = configurationBuilder.AddUserSecrets<Program>().Build();
-
 // Add services to the container.
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 /////Services/////
+builder.Services.AddControllers();
 builder.Services.AddScoped<AuthenticationSeeder>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 //builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
 
@@ -30,9 +28,9 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var validIssuer = configurationRoot["AppSettings:ValidIssuer"];
-        var validAudience = configurationRoot["AppSettings:ValidAudience"];
-        var secretValue = configurationRoot["AppSettings:IssuerSigningKey"];
+        var validIssuer = builder.Configuration["AppSettings:ValidIssuer"];
+        var validAudience = builder.Configuration["AppSettings:ValidAudience"];
+        var secretValue = builder.Configuration["AppSettings:IssuerSigningKey"];
         
         options.TokenValidationParameters = new TokenValidationParameters()
         {
@@ -66,7 +64,7 @@ builder.Services.AddIdentityCore<AppUser>(options =>
 /////DbContext/////
 builder.Services.AddDbContext<CgShopContext>(options =>
 {
-    options.UseNpgsql(configurationRoot["ConnectionString"]);
+    options.UseNpgsql(builder.Configuration["ConnectionString"]);
 });
 
 ConfigureSwagger();
