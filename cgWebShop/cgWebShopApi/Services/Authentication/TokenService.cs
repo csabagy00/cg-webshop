@@ -10,11 +10,11 @@ namespace cgWebShopApi.Services.Authentication;
 public class TokenService : ITokenService
 {
     private const int ExpirationMin = 60;
-    private readonly IConfigurationRoot _configurationRoot;
+    private readonly IConfiguration _configuration;
 
-    public TokenService(IConfigurationRoot configurationRoot)
+    public TokenService(IConfiguration configuration)
     {
-        _configurationRoot = configurationRoot;
+        _configuration = configuration;
     }
 
     public string CreateToken(AppUser user, string role)
@@ -33,8 +33,8 @@ public class TokenService : ITokenService
     private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials,
         DateTime expiration) =>
         new(
-            _configurationRoot["JwtSettings:ValidIssuer"],
-            _configurationRoot["JwtSettings:ValidAudience"],
+            _configuration["AppSettings:ValidIssuer"],
+            _configuration["AppSettings:ValidAudience"],
             claims,
             expires: expiration,
             signingCredentials: credentials
@@ -72,7 +72,7 @@ public class TokenService : ITokenService
     {
         return new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configurationRoot["SigningKey:IssuerSigningKey"]!)
+                Encoding.UTF8.GetBytes(_configuration["AppSettings:IssuerSigningKey"]!)
             ),
             SecurityAlgorithms.HmacSha256
         );
