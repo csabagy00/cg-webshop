@@ -8,7 +8,7 @@ namespace cgWebShopApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CategoryController
+public class CategoryController : ControllerBase
 {
     private readonly ILogger<CategoryController> _logger;
     private readonly ICategoryRepository _categoryRepository;
@@ -25,7 +25,26 @@ public class CategoryController
         try
         {
             var categories = await _categoryRepository.GetAllCategories();
-            return (categories);
+            return Ok(categories);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
+    }
+
+    [HttpGet("id")]
+    public async Task<ActionResult<Category>> GetCategoryById(int id)
+    {
+        try
+        {
+            var category = await _categoryRepository.GetCategoryById(id);
+            
+            if (category == null)
+                return NotFound();
+            
+            return Ok(category);
         }
         catch (Exception e)
         {
