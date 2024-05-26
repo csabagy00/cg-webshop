@@ -4,6 +4,7 @@ using cgWebShopApi.Controllers;
 using cgWebShopApi.Data;
 using cgWebShopApi.Models;
 using cgWebShopApi.Respositories;
+using cgWebShopApi.Respositories.Category;
 using cgWebShopApi.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,7 @@ builder.Services.AddScoped<AuthenticationSeeder>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 /////Authentication/////
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -47,7 +49,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(secretValue!))
         };
     });
-
 
 /////IdentityCore/////
 builder.Services.AddIdentityCore<AppUser>(options =>
