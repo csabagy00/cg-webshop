@@ -3,7 +3,7 @@ namespace cgWebShopApi.Models;
 public class Order
 {
     public int Id { get; set; }
-    public Product Product { get; set; }
+    public ICollection<Product> Products { get; set; }
     public AppUser AppUser { get; set; }
     public DateTime Date { get; set; }
     public string Address { get; set; }
