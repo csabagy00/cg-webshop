@@ -28,7 +28,8 @@ public class CgShopContext : IdentityDbContext<AppUser, IdentityRole, string>
         builder.Entity<Product>()
             .HasOne(p => p.Category)
             .WithMany(c => c.Products)
-            .HasForeignKey("CategoryId");
+            .HasForeignKey("CategoryId")
+            .OnDelete(DeleteBehavior.Restrict);
         
         /*List<Product> products = new List<Product>
         {
