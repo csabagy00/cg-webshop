@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using cgWebShopApi.Controllers;
 using cgWebShopApi.Data;
 using cgWebShopApi.Models;
@@ -18,11 +19,12 @@ builder.Services.AddSwaggerGen();
 
 /////Services/////
 builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler =  ReferenceHandler.IgnoreCycles);
 builder.Services.AddScoped<AuthenticationSeeder>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-//builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
-//builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 
 /////Authentication/////
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
