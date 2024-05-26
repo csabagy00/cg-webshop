@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using cgWebShopApi.Data;
@@ -11,9 +12,11 @@ using cgWebShopApi.Data;
 namespace cgWebShopApi.Migrations
 {
     [DbContext(typeof(CgShopContext))]
-    partial class CgShopContextModelSnapshot : ModelSnapshot
+    [Migration("20240526162238_addData")]
+    partial class addData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
