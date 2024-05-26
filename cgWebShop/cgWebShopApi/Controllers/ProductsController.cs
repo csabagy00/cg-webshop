@@ -9,15 +9,13 @@ namespace cgWebShopApi.Controllers;
 [Route("[controller]")]
 public class ProductsController : ControllerBase
 {
-    private readonly string ConnectionString;
     private readonly ILogger<ProductsController> _logger;
     private readonly IProductsRepository _productsRepository;
 
-    public ProductsController(ILogger<ProductsController> logger)
+    public ProductsController(ILogger<ProductsController> logger, IProductsRepository productsRepository)
     {
-        ConnectionString = "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=cgwebshop";
         _logger = logger;
-        _productsRepository = new ProductsRepository(new NpgsqlConnection(ConnectionString));
+        _productsRepository = productsRepository;
     }
 
     [HttpGet]
@@ -41,6 +39,10 @@ public class ProductsController : ControllerBase
         try
         {
             var product = await _productsRepository.GetProductById(id);
+
+            if (product == null!)
+                return NotFound();
+            
             return Ok(product);
         }
         catch (Exception e)
@@ -83,17 +85,24 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPatch]
-    public async Task<ActionResult<Product>> PatchProductById(int id, Product product)
+    public async Task<ActionResult<Product>> PatchProductById(Product product)
     {
         try
         {
-            await _productsRepository.UpdateProductById(id, product);
+            var products = await _productsRepository.GetAllProducts();
+            
+            if (!products.Contains(products.FirstOrDefault(p => p.Id == product.Id)!))
+            {
+                return NotFound();
+            }
+          
+            await _productsRepository.UpdateProductById(product);
             
             return Ok(product);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error updating product with id {id}: {e.Message}");
+            _logger.LogError(e, $"Error updating product with id {product.Id}: {e.Message}");
             throw;
         }
     }
