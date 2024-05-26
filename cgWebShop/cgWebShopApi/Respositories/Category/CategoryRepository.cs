@@ -1,4 +1,5 @@
 using cgWebShopApi.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace cgWebShopApi.Respositories.Category;
@@ -27,9 +28,19 @@ public class CategoryRepository : ICategoryRepository
         }
     }
 
-    public async Task<Models.Category> GetCategoryById()
+    public async Task<Models.Category> GetCategoryById(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            
+            return category;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
     }
 
     public async Task AddNewCategory()
