@@ -32,7 +32,7 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _dbContext.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == id);
             
             return category;
         }
