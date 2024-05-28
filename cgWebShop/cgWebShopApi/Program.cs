@@ -5,6 +5,7 @@ using cgWebShopApi.Data;
 using cgWebShopApi.Models;
 using cgWebShopApi.Respositories;
 using cgWebShopApi.Respositories.Category;
+using cgWebShopApi.Respositories.Orders;
 using cgWebShopApi.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+ConfigureSwagger();
 
 /////Services/////
 builder.Services.AddControllers();
@@ -27,6 +28,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 /////Authentication/////
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -34,7 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         var validIssuer = builder.Configuration["AppSettings:ValidIssuer"];
         var validAudience = builder.Configuration["AppSettings:ValidAudience"];
-        var secretValue = builder.Configuration["AppSettings:IssuerSigningKey"];
+        var issuerSigningKey = builder.Configuration["AppSettings:IssuerSigningKey"];
         
         options.TokenValidationParameters = new TokenValidationParameters()
         {
@@ -46,7 +48,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = validIssuer,
             ValidAudience = validAudience,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(secretValue!))
+                Encoding.UTF8.GetBytes(issuerSigningKey!))
         };
     });
 
@@ -70,7 +72,6 @@ builder.Services.AddDbContext<CgShopContext>(options =>
     options.UseNpgsql(builder.Configuration["ConnectionString"]);
 });
 
-ConfigureSwagger();
 
 var app = builder.Build();
 
@@ -91,8 +92,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
