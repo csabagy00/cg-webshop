@@ -22,7 +22,11 @@ public class OrderRepository : IOrderRepository
     {
         try
         {
-            return await _dbContext.Orders.FindAsync(id);
+            return await _dbContext.Orders
+                .Include(o => o.AppUser)
+                .Include(o => o.Products)
+                .Include(o => o.Products)
+                .FirstOrDefaultAsync(o => o.Id == id);
         }
         catch (Exception e)
         {
@@ -48,6 +52,7 @@ public class OrderRepository : IOrderRepository
     {
         try
         {
+           
            await _dbContext.Orders.AddAsync(order);
            await _dbContext.SaveChangesAsync();
         }
