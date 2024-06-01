@@ -5,9 +5,9 @@ namespace cgWebShopApi.Respositories.Orders;
 
 public interface IOrderRepository
 {
-    Task<ActionResult<Order>> GetOrderById(int id);
+    Task<Order> GetOrderById(int id);
 
-    Task<ActionResult<List<Order>>> GetOrdersByUserId(string id);
+    Task<List<Order>> GetOrdersByUserId(string id);
 
     Task AddNewOrder(Order order);
 

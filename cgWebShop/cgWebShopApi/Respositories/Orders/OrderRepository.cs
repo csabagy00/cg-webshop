@@ -18,7 +18,7 @@ public class OrderRepository : IOrderRepository
     }
 
 
-    public async Task<ActionResult<Order>> GetOrderById(int id)
+    public async Task<Order> GetOrderById(int id)
     {
         try
         {
@@ -35,7 +35,7 @@ public class OrderRepository : IOrderRepository
         }
     }
 
-    public async Task<ActionResult<List<Order>>> GetOrdersByUserId(string id)
+    public async Task<List<Order>> GetOrdersByUserId(string id)
     {
         try
         {
