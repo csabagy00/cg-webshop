@@ -4,6 +4,7 @@ namespace cgWebShopApi.Services.Authentication;
 
 public record AuthResult(
     bool Success,
+    string Id,
     string Email,
     string Username,
     string Token,
