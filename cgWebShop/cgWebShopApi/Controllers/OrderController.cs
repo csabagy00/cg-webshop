@@ -33,12 +33,12 @@ public class OrderController : ControllerBase
         try
         {
             var order = await _orderRepository.GetOrderById(id);
-            if (order.Value == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return Ok(order.Value);
+            return Ok(order);
         }
         catch (Exception e)
         {
@@ -53,12 +53,11 @@ public class OrderController : ControllerBase
         try
         {
             var orders = await _orderRepository.GetOrdersByUserId(userId);
-            if (orders.Result != null)
+            if (orders.Count == 0)
             {
-                return Ok(orders.Result);
+                return NotFound();
             }
-
-            return NotFound();
+            return Ok(orders);
         }
         catch (Exception e)
         {
@@ -74,7 +73,7 @@ public class OrderController : ControllerBase
         {
             await _orderRepository.RemoveOrder(id);
 
-            return Ok(id);
+            return NoContent();
         }
         catch (Exception e)
         {
@@ -103,7 +102,7 @@ public class OrderController : ControllerBase
                 Country = orderDto.Country,
                 Date = orderDto.Date,
                 PostalCode = orderDto.PostalCode,
-                Products = new List<Product>()
+                Products = new List<OrderedProduct>()
             };
 
             foreach (var productDto in orderDto.Products)
@@ -111,8 +110,10 @@ public class OrderController : ControllerBase
                 var product = await _dbContext.Products
                     .Include(p => p.Category)
                     .FirstOrDefaultAsync(p => p.Id == productDto.Id);
+
+                var orderedProduct = new OrderedProduct { Product = product! };
                 
-                order.Products.Add(product);
+                order.Products.Add(orderedProduct);
             }
             
             order.AppUser = user;
