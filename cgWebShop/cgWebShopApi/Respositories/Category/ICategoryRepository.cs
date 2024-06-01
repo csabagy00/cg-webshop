@@ -6,5 +6,7 @@ public interface ICategoryRepository
 
     Task<Models.Category> GetCategoryById(int id);
 
-    Task AddNewCategory();
+    Task AddNewCategory(Models.Category category);
+
+    Task Deletecategory(Models.Category category);
 }

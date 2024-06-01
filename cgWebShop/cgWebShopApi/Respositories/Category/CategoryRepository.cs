@@ -43,8 +43,31 @@ public class CategoryRepository : ICategoryRepository
         }
     }
 
-    public async Task AddNewCategory()
+    public async Task AddNewCategory(Models.Category category)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _dbContext.Categories.AddAsync(category);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
+    }
+
+    public async Task Deletecategory(Models.Category category)
+    {
+        try
+        {
+            _dbContext.Remove(category);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
     }
 }
