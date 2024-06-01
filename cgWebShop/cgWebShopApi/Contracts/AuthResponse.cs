@@ -1,6 +1,7 @@
 namespace cgWebShopApi.Contracts;
 
 public record AuthResponse(
+    string Id,
     string Email, 
     string Username, 
     string Token, 
