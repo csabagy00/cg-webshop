@@ -32,7 +32,7 @@ public class AuthService : IAuthService
             return FailedRegistration(result, email, username);
 
         await _userManager.AddToRoleAsync(user, role);
-        return new AuthResult(true, email, username, "", first, middle, last, phone, "");
+        return new AuthResult(true, "",email, username, "", first, middle, last, phone, "");
     }
 
     public async Task<AuthResult> LoginAsync(string email, string password)
@@ -49,7 +49,8 @@ public class AuthService : IAuthService
         var roles = await _userManager.GetRolesAsync(managedUser);
         var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
-        return new AuthResult(true, 
+        return new AuthResult(true,
+            managedUser.Id,
             managedUser.Email, 
             managedUser.UserName, 
             accessToken, managedUser.FirstName, 
@@ -61,7 +62,7 @@ public class AuthService : IAuthService
 
     private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
     {
-        var authResult = new AuthResult(false, email, username, "", "","","", "", "");
+        var authResult = new AuthResult(false,"" ,email, username, "", "","","", "", "");
 
         foreach (var error in result.Errors)
         {
@@ -73,14 +74,14 @@ public class AuthService : IAuthService
 
     private static AuthResult InvalidEmail(string email)
     {
-        var result = new AuthResult(false, email, "", "", "", "", "", "","");
+        var result = new AuthResult(false,"" ,email, "", "", "", "", "", "","");
         result.ErrorMessages.Add("Bad credentials", "Invalid email");
         return result;
     }
 
     private static AuthResult InvalidPassword(string email, string username)
     {
-        var result = new AuthResult(false, email, username, "", "", "", "", "", "");
+        var result = new AuthResult(false,"" ,email, username, "", "", "", "", "", "");
         result.ErrorMessages.Add("Bad credentials", "Invalid email");
         return result;
     }
