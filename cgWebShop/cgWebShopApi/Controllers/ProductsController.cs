@@ -75,7 +75,7 @@ public class ProductsController : ControllerBase
         {
             await _productsRepository.DeleteOneProduct(id);
             
-            return Ok(id);
+            return NoContent();
         }
         catch (Exception e)
         {
