@@ -48,7 +48,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        return Ok(new AuthResponse(result.Email, result.Username, result.Token, result.First, result.Middle,
+        return Ok(new AuthResponse(result.Id, result.Email, result.Username, result.Token, result.First, result.Middle,
             result.Last, result.Phone, result.Role));
     }
     
