@@ -11,3 +11,40 @@
   display: flex;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-btn {
+  padding: 5px 15px;
+  margin-bottom: 1px;
+  display: block;
+  background-color: blanchedalmond;
+  width: 100px;
+  border: none;
+}
+
+.dropdown-btn:hover {
+  cursor: pointer;
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: blanchedalmond;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.875);
+  display: none;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
