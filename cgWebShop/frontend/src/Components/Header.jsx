@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import SearchForm from './SearchForm';
 import "./css/Header.css"
 
-function Header({ isAuthenticated, setIsAuthenticated }){
+function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setSearchValue, products, filteredProducts, searchValue }){
   var navigate = useNavigate();
   const [categories, setCategories] = useState();
 
@@ -31,16 +31,32 @@ function Header({ isAuthenticated, setIsAuthenticated }){
 
   }
 
+  const onClickCategory = (c) => {
+    console.log("clicked category");
+
+    if(searchValue != null){
+      console.log("search + cat");
+      setFilteredProducts(products.filter(p => p.category.name == c.name && p.name.includes(searchValue)))
+    } else {
+      console.log("cat");
+      setFilteredProducts(products.filter(p => p.category.name == c.name))
+    }
+  }
+
+  const onClickCategories = () => {
+    setFilteredProducts(null)
+  }
+
   return (
     <nav className="navbar">
       <div className="nav-content">
         <button className='btn' onClick={() => navigate("/")}>Home</button>
         <div className='dropdown'>
-          <button className='btn'>Categories</button>
+          <button className='btn' onClick={onClickCategories}>Categories</button>
           <div className='dropdown-content'>
             {categories && categories.map(c => {
               return(
-                <button className='dropdown-btn'>{c.name}</button>
+                <button className='dropdown-btn' onClick={() => onClickCategory(c)}>{c.name}</button>
               )
             })}
           </div>
@@ -57,7 +73,7 @@ function Header({ isAuthenticated, setIsAuthenticated }){
             <button className='btn'>Account</button>
           </>
         }
-        <SearchForm />
+        <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} products={products}/>
       </div>
     </nav>
   )
