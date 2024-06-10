@@ -3,8 +3,7 @@ import ProductCard from "../Components/ProductCard";
 import Header from "../Components/Header";
 
 
-function MainPage(){
-  const [products, setProducts] = useState();
+function MainPage({ products, filteredProducts, setProducts, searchValue }){
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,14 +20,29 @@ function MainPage(){
     fetchData();
   }, [])
 
+
+
+
+
   return(
     <>
       <div className="main-products">
-        {products && products.map(p => {
+        {filteredProducts && filteredProducts ?
+
+        filteredProducts.map(p => {
           return(
             <ProductCard product={p}/>
           )
-        })}
+        })
+
+        : products && products ?
+
+        products.map(p => {
+          return(
+            <ProductCard product={p}/>
+          )
+        }) : 
+        <div>No products available</div>}
       </div>
     </>
   )
