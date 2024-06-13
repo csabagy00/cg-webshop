@@ -70,7 +70,7 @@ function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setS
             :
           <>
             <button className='btn' onClick={logout}>Logout</button>
-            <button className='btn'>Account</button>
+            <button className='btn' onClick={() => navigate("/account")}>Account</button>
           </>
         }
         <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} products={products}/>
