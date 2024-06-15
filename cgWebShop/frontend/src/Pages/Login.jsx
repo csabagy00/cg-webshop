@@ -1,9 +1,11 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import LoginForm from "../Components/LoginForm"
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = ({ setIsAuthenticated, setIsAdmin }) => {
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
+const navigate = useNavigate();
 
   const submitLogin = async (e) => {
     e.preventDefault()
@@ -29,7 +31,13 @@ const [password, setPassword] = useState("")
 
         setEmail("")
         setPassword("")
+
+        if(result.role === "Admin"){
+          setIsAdmin(true)
+        }
         
+        navigate('/')
+
         console.log(localStorage.getItem("token"))
         console.log(JSON.parse(localStorage.getItem("user")))
       }
