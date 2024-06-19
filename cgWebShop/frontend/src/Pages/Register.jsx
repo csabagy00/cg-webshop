@@ -1,7 +1,10 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import RegisterForm from "../Components/RegisterForm"
+import Modal from "../Components/Modal"
 
 const Register = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [first, setFirst] = useState("")
@@ -9,6 +12,7 @@ const Register = () => {
   const [last, setLast] = useState("")
   const [phone, setPhone] = useState("")
   const [password, setPassword] = useState("")
+  const [invalidReg, setInvalidReg] = useState(false)
 
 
   const submitRegister = async(e) => {
@@ -40,7 +44,10 @@ const Register = () => {
         setLast("")
         setPhone("")
         setPassword("")
+        navigate("/")
         console.log(result);
+      }else{
+        setInvalidReg(true)
       }
 
     } catch (error) {
@@ -52,6 +59,9 @@ const Register = () => {
   return(
     <>
       <RegisterForm setEmail={setEmail} setUsername={setUsername} setFirst={setFirst} setMiddle={setMiddle} setLast={setLast} setPhone={setPhone} setPassword={setPassword} submitRegister={submitRegister}/>
+      <Modal isOpen={invalidReg} onClose={() => setInvalidReg(false)}>
+        <p>Invalid registration data</p>
+      </Modal>
     </>
   )
 }
