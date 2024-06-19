@@ -42,6 +42,10 @@
   padding-left: 10px;
 }
 
+.field-post :hover {
+  cursor: pointer;
+}
+
 .field-post input {
   height: 100%;
   width: 100%;
