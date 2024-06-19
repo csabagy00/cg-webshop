@@ -6,6 +6,7 @@ import './App.css'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Account from './Pages/Account'
+import Order from './Pages/Order'
 
 function App() {
   const cartArray = [];
@@ -44,6 +45,7 @@ function App() {
         <Route path='/login' element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin}/>}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/account' element={<Account user={user} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} cartArray={cartArray}/>}/>
+        <Route path='/order' element={<Order cartArray={cartArray} user={user}/>} />
       </Routes>
     </BrowserRouter>
   )
