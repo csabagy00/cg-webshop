@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Details from '../Components/Details';
 import Cart from '../Components/Cart';
 import './css/Account.css'
+import Admin from '../Components/Admin';
 
 const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) => {
   const[show, setShow] = useState(null);
@@ -30,15 +31,18 @@ const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) =
         <button onClick={() => setShow("cart")}>Cart</button>
         <button onClick={() => setShow("details")}>Details</button>
         <button>Orders</button>
-        { isAdmin ? <button>Admin page</button> : <></>}
+        { isAdmin ? <button onClick={() => setShow("admin")}>Admin page</button> : <></>}
         <button onClick={logout}>Logout</button>
       </div>
         { show == "cart" ?
           <Cart cartArray={cartArray} navigate={navigate}/>
         : 
-        show == "details" ? (
+        show == "details" ? 
           <Details user={user}/>
-        ):
+        :
+        show == "admin" ? 
+          <Admin /> 
+        :
         <></>
         }
         
