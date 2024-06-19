@@ -60,7 +60,7 @@ function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setS
           <div className='dropdown-content'>
             {categories && categories.map(c => {
               return(
-                <button className='dropdown-btn' onClick={() => onClickCategory(c)}>{c.name}</button>
+                <button key={c.id} className='dropdown-btn' onClick={() => onClickCategory(c)}>{c.name}</button>
               )
             })}
           </div>
