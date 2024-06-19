@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import CartItem from '../Components/CartItem';
+import Details from '../Components/Details';
+import Cart from '../Components/Cart';
 import './css/Account.css'
 
 const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) => {
@@ -33,40 +34,10 @@ const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) =
         <button onClick={logout}>Logout</button>
       </div>
         { show == "cart" ?
-        <div className='acc-cart-items'>
-          {cartArray.length == 0 ? 
-          <p>No products in the cart</p> 
-          :
-          cartArray.map(item => {
-            return (<CartItem item={item}/>)
-          })}
-        </div> 
+          <Cart cartArray={cartArray} navigate={navigate}/>
         : 
         show == "details" ? (
-          <div className="acc-page">
-          <div className="acc-info">
-            <div className="acc-detail">
-              <label>Email:</label>
-              <p className='acc-value'>{user.email}</p>
-            </div>
-            <div className="acc-detail">
-              <label>Full name:</label>
-              <p className='acc-value'>{user.first + (user.middle ? " " + user.middle + " " : " ") + user.last}</p>
-            </div>
-            <div className="acc-detail">
-              <label>Username:</label>
-              <p className='acc-value'>{user.username}</p>
-            </div>
-            <div className="acc-detail">
-              <label>Phone:</label>
-              <p className='acc-value'>{user.phone}</p>
-            </div>
-            <button className='btn'>Edit</button>
-          </div>
-          <div className='acc-edit'>
-
-          </div>
-        </div>
+          <Details user={user}/>
         ):
         <></>
         }
