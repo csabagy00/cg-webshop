@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import LoginForm from "../Components/LoginForm"
+import Modal from "../Components/Modal"
 
 const Login = ({ setIsAuthenticated, setIsAdmin }) => {
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
+const [invalidLogin, setInvalidLogin] = useState(false)
 const navigate = useNavigate();
 
   const submitLogin = async (e) => {
@@ -40,6 +42,10 @@ const navigate = useNavigate();
 
         console.log(localStorage.getItem("token"))
         console.log(JSON.parse(localStorage.getItem("user")))
+        console.log(invalidLogin);
+      } else {
+        setInvalidLogin(true)
+        console.log(invalidLogin);
       }
     } catch (error) {
       console.error("Error submiting:"), error
@@ -49,6 +55,9 @@ const navigate = useNavigate();
   return(
     <div>
       <LoginForm submitLogin={submitLogin} setEmail={setEmail} setPassword={setPassword} email={email} password={password}/>
+      <Modal isOpen={invalidLogin} onClose={() => setInvalidLogin(false)}>
+        <p>Incorrect email or password!</p>
+      </Modal>
     </div>
   )
 }
