@@ -1,10 +1,9 @@
 import './css/ProductCard.css'
 
-const ProductCard = ({ product, addToCart, isAuthenticated, setOpenModal }) => {
+const ProductCard = ({ key, product, addToCart, isAuthenticated, setOpenModal }) => {
 
 
   return(
-    <>
       <div className="prod-card">
         <img src="../public/images/no-img.jpg" className="card-img"/>
         <div className="card-content">
@@ -13,7 +12,6 @@ const ProductCard = ({ product, addToCart, isAuthenticated, setOpenModal }) => {
           <button className='btn' onClick={isAuthenticated ? () => addToCart(product) : () => setOpenModal(true)}>Add to Cart</button>
         </div>
       </div>
-    </>
   )
 }
 
