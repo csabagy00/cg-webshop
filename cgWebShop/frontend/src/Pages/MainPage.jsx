@@ -37,7 +37,7 @@ function MainPage({ products, filteredProducts, setProducts, searchValue, cartAr
 
         filteredProducts.map(p => {
           return(
-            <ProductCard product={p}/>
+            <ProductCard product={p} addToCart={addToCart} isAuthenticated={isAuthenticated} setOpenModal={setOpenModal}/>
           )
         })
 
