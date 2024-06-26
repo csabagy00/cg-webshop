@@ -49,7 +49,7 @@ public class AuthenticationSeeder
 
             if (adminCreated.Succeeded)
             {
-                await _userManager.AddToRoleAsync(admin, _configurationRoot["Roles:1"]);
+                await _userManager.AddToRoleAsync(admin, Environment.GetEnvironmentVariable("ROLE_1") ?? _configurationRoot["Roles:1"]!);
             }
         }
     }
