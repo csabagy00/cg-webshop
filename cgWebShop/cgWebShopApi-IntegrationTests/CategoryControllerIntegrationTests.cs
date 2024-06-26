@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using cgWebShopApi.DTO;
 using cgWebShopApi.Models;
 using Microsoft.VisualBasic.CompilerServices;
 
@@ -26,7 +27,7 @@ public class CategoryControllerIntegrationTests
         
         Assert.NotNull(list);
         Assert.NotEmpty(list);
-        Assert.True(list.Count > 0);
+        Assert.True(list.Count == 3);
     }
 
     [Fact]
@@ -36,6 +37,7 @@ public class CategoryControllerIntegrationTests
         var result = await response.Content.ReadFromJsonAsync<Category>();
         
         Assert.Equal(1, result.Id);
+        Assert.NotEmpty(result.Name);
     }
 
     [Fact]
@@ -63,16 +65,16 @@ public class CategoryControllerIntegrationTests
     [Fact]
     public async Task DeleteCategoryById()
     {
-        var category = new Category{ Name = "newCat"};
+        var category = new CategoryDto { Name = "newCat"};
         await _client.PostAsJsonAsync("/Category", category);
         
-        var fetchedRes = await _client.GetAsync("/Category/id?id=1");
+        var fetchedRes = await _client.GetAsync("/Category/id?id=4");
         var fetched = await fetchedRes.Content.ReadFromJsonAsync<Category>();
         
         Assert.NotNull(fetched);
         Assert.Empty(fetched.Products);
 
-        var response = await _client.DeleteAsync("/Category?id=1");
+        var response = await _client.DeleteAsync("/Category?id=4");
         
         var getResponse = await _client.GetAsync("/Category");
         var list = await getResponse.Content.ReadFromJsonAsync<List<Category>>();
