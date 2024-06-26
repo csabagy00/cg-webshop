@@ -34,9 +34,9 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var validIssuer = builder.Configuration["AppSettings:ValidIssuer"];
-        var validAudience = builder.Configuration["AppSettings:ValidAudience"];
-        var issuerSigningKey = builder.Configuration["AppSettings:IssuerSigningKey"];
+        var validIssuer = Environment.GetEnvironmentVariable("VALID_ISSUER") ?? builder.Configuration["AppSettings:ValidIssuer"];
+        var validAudience = Environment.GetEnvironmentVariable("VALID_AUDIENCE") ?? builder.Configuration["AppSettings:ValidAudience"];
+        var issuerSigningKey = Environment.GetEnvironmentVariable("ISSUER_SIGNING_KEY") ?? builder.Configuration["AppSettings:IssuerSigningKey"];
         
         options.TokenValidationParameters = new TokenValidationParameters()
         {
