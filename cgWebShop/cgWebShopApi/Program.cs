@@ -69,7 +69,7 @@ builder.Services.AddIdentityCore<AppUser>(options =>
 /////DbContext/////
 builder.Services.AddDbContext<CgShopContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration["ConnectionString"]);
+    options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? builder.Configuration["ConnectionString"]);
 });
 
 
