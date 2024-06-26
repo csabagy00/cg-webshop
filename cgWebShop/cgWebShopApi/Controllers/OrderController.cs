@@ -71,9 +71,12 @@ public class OrderController : ControllerBase
     {
         try
         {
-            await _orderRepository.RemoveOrder(id);
+            bool result = await _orderRepository.RemoveOrder(id);
 
-            return NoContent();
+            if(result)
+                return NoContent();
+
+            return NotFound();
         }
         catch (Exception e)
         {

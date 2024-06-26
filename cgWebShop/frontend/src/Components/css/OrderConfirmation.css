@@ -1,0 +1,44 @@
+
+.confirm-page{
+  margin-top: 20px;
+  display: flex;
+  width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.confirm-info{
+  width: 25%;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  background-color: #f2f2f2;
+}
+
+.confirm-info p {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.confirm-table{
+  width: 75%;
+  padding: 20px;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

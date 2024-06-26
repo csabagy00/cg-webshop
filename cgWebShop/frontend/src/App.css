@@ -1,6 +1,12 @@
 .btn {
   border-radius: 8px;
   cursor: pointer;
+  min-width: 80px;
+  margin: 5px;
+}
+
+.btn:hover {
+  box-shadow: 2px 1px 7px 0px rgba(0,0,0,0.67);
 }
 
 .main-products {

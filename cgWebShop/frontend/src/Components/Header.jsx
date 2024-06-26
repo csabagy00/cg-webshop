@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import SearchForm from './SearchForm';
 import "./css/Header.css"
 
-function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setSearchValue, products, filteredProducts, searchValue }){
+function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setSearchValue, products, filteredProducts, searchValue, setIsAdmin }){
   var navigate = useNavigate();
   const [categories, setCategories] = useState();
 
@@ -26,6 +27,9 @@ function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setS
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     setIsAuthenticated(false)
+    setIsAdmin(false)
+
+    navigate('/')
 
     console.log(localStorage.getItem("token") == null);
 
@@ -56,7 +60,7 @@ function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setS
           <div className='dropdown-content'>
             {categories && categories.map(c => {
               return(
-                <button className='dropdown-btn' onClick={() => onClickCategory(c)}>{c.name}</button>
+                <button key={c.id} className='dropdown-btn' onClick={() => onClickCategory(c)}>{c.name}</button>
               )
             })}
           </div>
@@ -70,10 +74,13 @@ function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setS
             :
           <>
             <button className='btn' onClick={logout}>Logout</button>
-            <button className='btn'>Account</button>
+            <button className='btn' onClick={() => navigate("/account")}>Account</button>
           </>
         }
         <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} products={products}/>
+        <div className='cart-btn'>
+          <i className="fas fa-shopping-cart"></i>
+        </div>
       </div>
     </nav>
   )

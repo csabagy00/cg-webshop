@@ -129,3 +129,5 @@ void ConfigureSwagger()
         });
     });
 }
+
+public partial class Program { }
