@@ -63,7 +63,7 @@ public class OrderRepository : IOrderRepository
         }
     }
 
-    public async Task RemoveOrder(int id)
+    public async Task<bool> RemoveOrder(int id)
     {
         try
         {
@@ -72,7 +72,11 @@ public class OrderRepository : IOrderRepository
             {
                 _dbContext.Orders.Remove(order);
                 await _dbContext.SaveChangesAsync();
+                return true;
             }
+
+            return false;
+
         }
         catch (Exception e)
         {

@@ -11,5 +11,5 @@ public interface IOrderRepository
 
     Task AddNewOrder(Order order);
 
-    Task RemoveOrder(int id);
+    Task<bool> RemoveOrder(int id);
 }
