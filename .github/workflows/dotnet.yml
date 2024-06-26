@@ -3,6 +3,11 @@
 
 name: .NET
 
+defaults:
+  run: 
+    shell: bash
+    working-directory: ./cgWebShop
+
 on:
   push:
     branches: [ "main" ]
