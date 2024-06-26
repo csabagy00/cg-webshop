@@ -85,9 +85,10 @@ public class OrderControllerIntegrationTests
         
         var response = await _client.GetAsync($"Order/1");
 
-        //var order = await response.Content.ReadFromJsonAsync<Order>();
+        var order = await response.Content.ReadFromJsonAsync<Order>();
         
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotEmpty(order.Products);
     }
 
     [Fact]
