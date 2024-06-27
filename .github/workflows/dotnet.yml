@@ -23,7 +23,7 @@ jobs:
       CONNECTION_STRING: "Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=cgwebshop"
       VALID_ISSUER: "CgWebSHopAudience"
       VALID_AUDIENCE: "CgWebSHopIssuer"
-      ISSUER_SIGNING_KEY: "CgWebShop!Issuer!Secret??Signing-Key"
+      ISSUER_SIGNING_KEY: ${{ secrets.ISSUER_SIGNING_KEY }}
       ROLE_1: "Admin"
       ROLE_2: "User"
 
