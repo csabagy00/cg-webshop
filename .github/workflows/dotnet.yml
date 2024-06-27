@@ -21,11 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
-      VALID_ISSUER: ${{ secrets.VALID_ISSUER }}
-      VALID_AUDIENCE: ${{ secrets.VALID_AUDIENCE }}
+      VALID_ISSUER: "CgWebSHopAudience"
+      VALID_AUDIENCE: "CgWebSHopIssuer"
       ISSUER_SIGNING_KEY: ${{ secrets.ISSUER_SIGNING_KEY }}
-      ROLE_1: ${{ secrets.ROLE_1 }}
-      ROLE_2: ${{ secrets.ROLE_2 }}
+      ROLE_1: "Admin"
+      ROLE_2: "User"
 
     steps:
     - uses: actions/checkout@v4
