@@ -33,8 +33,8 @@ public class TokenService : ITokenService
     private JwtSecurityToken CreateJwtToken(List<Claim> claims, SigningCredentials credentials,
         DateTime expiration) =>
         new(
-            _configuration["AppSettings:ValidIssuer"],
-            _configuration["AppSettings:ValidAudience"],
+            Environment.GetEnvironmentVariable("VALID_ISSUER") ?? _configuration["AppSettings:ValidIssuer"],
+            Environment.GetEnvironmentVariable("VALID_AUDIENCE") ?? _configuration["AppSettings:ValidAudience"],
             claims,
             expires: expiration,
             signingCredentials: credentials
