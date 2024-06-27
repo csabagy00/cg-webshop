@@ -25,7 +25,7 @@ jobs:
       VALID_AUDIENCE: ${{ secrets.VALID_AUDIENCE }}
       ISSUER_SIGNING_KEY: ${{ secrets.ISSUER_SIGNING_KEY }}
       ROLE_1: ${{ secrets.ROLE_1 }}
-      ROLE_2: ${{ secrets.ROLE_2}}
+      ROLE_2: ${{ secrets.ROLE_2 }}
 
     steps:
     - uses: actions/checkout@v4
