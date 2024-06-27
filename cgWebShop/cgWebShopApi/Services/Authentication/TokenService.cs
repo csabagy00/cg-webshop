@@ -72,7 +72,7 @@ public class TokenService : ITokenService
     {
         return new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["AppSettings:IssuerSigningKey"]!)
+                Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("ISSUER_SIGNING_KEY") ?? _configuration["AppSettings:IssuerSigningKey"]!)
             ),
             SecurityAlgorithms.HmacSha256
         );
