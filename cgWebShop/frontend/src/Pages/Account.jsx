@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react';
+import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
 import Details from '../Components/Details';
 import Cart from '../Components/Cart';
-import './css/Account.css'
+import './css/Account.css';
 import Admin from '../Components/Admin';
 
-const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) => {
+const Account = () => {
   const[show, setShow] = useState(null);
   const navigate = useNavigate();
+
+  const { user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray} = useContext(Context);
 
   console.log(isAdmin);
   console.log(cartArray);

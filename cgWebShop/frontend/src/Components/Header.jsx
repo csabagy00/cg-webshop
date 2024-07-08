@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Context } from '../App'
 
 import SearchForm from './SearchForm';
 import "./css/Header.css"
 
-function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setSearchValue, products, filteredProducts, searchValue, setIsAdmin }){
+function Header(){
   var navigate = useNavigate();
   const [categories, setCategories] = useState();
+
+  const { products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {

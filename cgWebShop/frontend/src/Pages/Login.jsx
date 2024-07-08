@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { Context } from "../App"
 import { useNavigate } from "react-router-dom"
 import LoginForm from "../Components/LoginForm"
 import Modal from "../Components/Modal"
 
-const Login = ({ setIsAuthenticated, setIsAdmin }) => {
-const [email, setEmail] = useState("")
-const [password, setPassword] = useState("")
-const [invalidLogin, setInvalidLogin] = useState(false)
-const navigate = useNavigate();
+const Login = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [invalidLogin, setInvalidLogin] = useState(false)
+  const navigate = useNavigate();
+
+  const { setIsAuthenticated, setIsAdmin } = useContext(Context)
 
   const submitLogin = async (e) => {
     e.preventDefault()

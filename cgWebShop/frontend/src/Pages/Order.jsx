@@ -1,14 +1,17 @@
-import { useState } from "react"
+import { useState, useContext } from "react";
+import { Context } from "../App.jsx";
 import { useNavigate } from "react-router-dom"
 import ShippingInfo from '../Components/ShippingInfo.jsx'
 import OrderConfirmation from "../Components/OrderConfirmation.jsx"
 
-const Order = ({ cartArray, user }) => {
+const Order = () => {
   const [orderState, setOrderState] = useState(1)
   const [address, setAddress] = useState()
   const [city, setCity] = useState()
   const [country, setCountry] = useState()
   const [postal, setPostal] = useState()
+
+  const { cartArray, user } = useContext(Context);
 
   return(
     orderState == 1 ? 

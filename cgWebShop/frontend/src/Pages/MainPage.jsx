@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { Context } from "../App";
 import ProductCard from "../Components/ProductCard";
 import Modal from "../Components/Modal";
 
 
-function MainPage({ products, filteredProducts, setProducts, searchValue, cartArray, setCart, cart, isAuthenticated }){
+function MainPage(){
   const [openModal, setOpenModal] = useState(false)
 
+  const { products, filteredProducts, setProducts, searchValue, cartArray, setCart, cart, isAuthenticated } = useContext(Context)
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
