@@ -1,11 +1,37 @@
+import { resolvePath, useNavigate } from 'react-router-dom';
 import './css/OrderConfirmation.css'
 
 const OrderConfirmation = ({ cartArray, address, city, country, postal, user }) => {
+  const navigate = useNavigate();
 console.log(cartArray);
 
   const orderObj = {
-
+    products: cartArray,
+    date: new Date().toISOString(),
+    address: address,
+    city: city,
+    country: country,
+    postalCode: postal
   }
+
+  const postOrder = async () => {
+    try {
+
+      const response = fetch('/api/Order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify(orderObj)
+      })
+    
+      navigate("/")
+
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   return(
     <div className='confirm-outer'>
@@ -25,7 +51,7 @@ console.log(cartArray);
           <label>Postal code:</label>
           <p>{postal}</p>
           <div className='field-post'>
-            <input type='button' value='Confirm Order' onClick={console.log('clicked')}/>
+            <input type='button' value='Confirm Order' onClick={() => postOrder()}/>
           </div>
         </div>
         <div className="confirm-table">
