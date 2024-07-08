@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, createContext } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MainPage from './Pages/MainPage'
 import Header from './Components/Header'
@@ -7,6 +7,8 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Account from './Pages/Account'
 import Order from './Pages/Order'
+
+export const Context = createContext();
 
 function App() {
   const cartArray = [];
@@ -22,33 +24,20 @@ function App() {
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   return (
-    <BrowserRouter>
-      <Header isAuthenticated={isAuthenticated} 
-        setIsAuthenticated={setIsAuthenticated} 
-        setFilteredProducts={setFilteredProducts} 
-        setSearchValue={setSearchValue} 
-        filteredProducts={filteredProducts}
-        products={products}
-        setIsAdmin={setIsAdmin}/>
-
-      <Routes>
-        <Route path='/' element={<MainPage 
-          products={products} 
-          filteredProducts={filteredProducts} 
-          setProducts={setProducts} 
-          searchValue={searchValue} 
-          cartArray={cartArray} 
-          setCart={setCart}
-          cart={cart}
-          isAuthenticated={isAuthenticated}/>}/>
-
-        <Route path='/login' element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin}/>}/>
-        <Route path='/register' element={<Register />}/>
-        <Route path='/account' element={<Account user={user} setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} isAdmin={isAdmin} cartArray={cartArray}/>}/>
-        <Route path='/order' element={<Order cartArray={cartArray} user={user}/>} />
-      </Routes>
-    </BrowserRouter>
+    <Context.Provider value={{ setProducts, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, cartArray, user }}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/' element={<MainPage />}/>
+          <Route path='/login' element={<Login />}/>
+          <Route path='/register' element={<Register />}/>
+          <Route path='/account' element={<Account />}/>
+          <Route path='/order' element={<Order />} />
+        </Routes>
+      </BrowserRouter>
+    </Context.Provider>
   )
 }
+
 
 export default App
