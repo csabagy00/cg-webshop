@@ -20,6 +20,7 @@ function App() {
   const [searchValue, setSearchValue] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [cart, setCart] = useState(cartArray);
+  const [ordersRefresh, setOrdersRefresh] = useState(false)
 
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
