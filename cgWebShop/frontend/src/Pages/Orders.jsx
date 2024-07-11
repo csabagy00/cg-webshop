@@ -19,11 +19,10 @@ const Orders = ({ user }) => {
 
           if(result.status === 404){
             setOrders(null);
+          } else {
+            setOrders(result)
           }
-  
-          console.log(result);
-  
-          setOrders(result)
+          
         } catch (error) {
           console.error(error)
         }
