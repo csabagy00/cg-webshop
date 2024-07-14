@@ -1,25 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { Context } from '../App'
+
 
 const ProductForm = () => {
-  const [categories, setCategories] = useState()
   const [selectedCategory, setSelectedCategory] = useState()
   const [name, setName] = useState()
   const [inStock, setInStock] = useState()
   const [price, setPrice] = useState()
   const [image, setImage] = useState(null)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/Category')
-
-      if(response.ok){
-        const result = await response.json()
-        setCategories(result)
-      }
-    }
-
-    fetchData()
-  }, [])
+  const { categories } = useContext(Context);
 
   const handleChange = (e) => {
     const id = parseInt(e.target.value)
