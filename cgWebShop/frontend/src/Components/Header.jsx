@@ -7,24 +7,8 @@ import "./css/Header.css"
 
 function Header(){
   var navigate = useNavigate();
-  const [categories, setCategories] = useState();
 
-  const { products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin } = useContext(Context)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/Category')
-        const result = await response.json()
-        setCategories(result)
-
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    fetchData();
-  }, [])
+  const { products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, categories } = useContext(Context)
 
   const logout = () => {
     localStorage.removeItem("user")
@@ -35,7 +19,6 @@ function Header(){
     navigate('/')
 
     console.log(localStorage.getItem("token") == null);
-
   }
 
   const onClickCategory = (c) => {
