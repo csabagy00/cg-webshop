@@ -23,6 +23,7 @@ function App() {
   const [cart, setCart] = useState(cartArray);
   const [ordersRefresh, setOrdersRefresh] = useState(false);
   const [categoriesRefresh, setCategoriesRefresh] = useState(false);
+  const [productsRefresh, setProductsRefresh] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +45,7 @@ function App() {
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   return (
-    <Context.Provider value={{ setProducts, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, cartArray, user, categories, setCategoriesRefresh, categoriesRefresh }}>
+    <Context.Provider value={{ setProducts, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, cartArray, user, categories, setCategoriesRefresh, categoriesRefresh, productsRefresh, setProductsRefresh }}>
       <BrowserRouter>
         <Header />
         <Routes>
