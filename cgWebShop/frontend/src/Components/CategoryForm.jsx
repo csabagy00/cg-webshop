@@ -23,6 +23,7 @@ const CategoryForm = () => {
 
       if(response.ok){
         console.log("!!!")
+        setNameValue("")
         setCategoriesRefresh(!categoriesRefresh)
       }else{
         console.log("???");
