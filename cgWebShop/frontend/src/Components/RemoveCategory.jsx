@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { Context } from "../App"
 
-const RemoveCategory = () => {
+const RemoveCategory = ({ setShowCategoryModal }) => {
 
 const { categories, products, setCategoriesRefresh, categoriesRefresh } = useContext(Context);
 
@@ -15,7 +15,13 @@ const deleteCategory = async (id) => {
       method: 'DELETE'
     })
 
-    setCategoriesRefresh(!categoriesRefresh)
+    if(!response.ok){
+      console.log("didn't delete");
+      setShowCategoryModal(true)
+    }else{
+      setCategoriesRefresh(!categoriesRefresh)
+    
+    }
 
   } catch (error) {
     console.error(error)
