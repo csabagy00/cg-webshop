@@ -1,7 +1,11 @@
 import { useState } from 'react'
+import { useContext } from 'react'
+import { Context } from '../App'
 
 const CategoryForm = () => {
   const [nameValue, setNameValue] = useState("")
+
+  const { setCategoriesRefresh, categoriesRefresh } = useContext(Context);
 
   const submitCategory = async (e) => {
     e.preventDefault()
@@ -19,6 +23,7 @@ const CategoryForm = () => {
 
       if(response.ok){
         console.log("!!!")
+        setCategoriesRefresh(!categoriesRefresh)
       }else{
         console.log("???");
       }
