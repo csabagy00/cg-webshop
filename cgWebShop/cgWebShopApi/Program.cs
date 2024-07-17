@@ -7,6 +7,7 @@ using cgWebShopApi.Respositories;
 using cgWebShopApi.Respositories.Category;
 using cgWebShopApi.Respositories.Orders;
 using cgWebShopApi.Services.Authentication;
+using cgWebShopApi.Services.Role;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddScoped<AuthenticationSeeder>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
