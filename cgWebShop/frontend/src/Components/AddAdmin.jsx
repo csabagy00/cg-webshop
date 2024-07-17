@@ -34,13 +34,7 @@ const AddAdmin = () => {
 
       if(response.ok){
         const result = await response.json()
-        setEmail("")
-        setUsername("")
-        setFirst("")
-        setMiddle("")
-        setLast("")
-        setPhone("")
-        setPassword("")
+        StatesToBaseValue();
         console.log(result);
       }else{
         console.log("AddAdmin!!!");
@@ -51,18 +45,63 @@ const AddAdmin = () => {
     }
   }
 
+  const submitEmail = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/Role', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(`${email}`)
+      })
+
+      if(response.ok){
+        StatesToBaseValue();
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+
+  function StatesToBaseValue(){
+    setEmail("")
+    setUsername("")
+    setFirst("")
+    setMiddle("")
+    setLast("")
+    setPhone("")
+    setPassword("")
+  }
+
 
 
   return(
     <div className="addAdmin-container">
       <div className="addAdmin-top">
         <button className='addAdmin-top-left' onClick={() => setShow("registerAdmin")}>Register Admin Account</button>
-        <button className='addAdmin-top-right' onClick={() => setShow("makeAdmin")}>add admin test</button>
+        <button className='addAdmin-top-right' onClick={() => setShow("makeAdmin")}>Change role to Admin</button>
       </div>
       <div className="addAdmin-bottom">
         {show == "registerAdmin" ? 
-         <RegisterForm setEmail={setEmail} setUsername={setUsername} setFirst={setFirst} setMiddle={setMiddle} setLast={setLast} setPhone={setPhone} setPassword={setPassword} submitRegister={submitRegister}/> :
-         <p>TEST</p>
+         <RegisterForm setEmail={setEmail} setUsername={setUsername} setFirst={setFirst} setMiddle={setMiddle} setLast={setLast} setPhone={setPhone} setPassword={setPassword} submitRegister={submitRegister}/> 
+         :
+         <div className='form-page'>
+          <div className='form-wrapper'>
+            <form onSubmit={submitEmail}>
+              <div className='field'>
+                <label>Email:</label>
+                <input type="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
+              </div>
+              <div className='field-post'>
+                <input className="field-btn" type="submit" value="Change Role"/>
+              </div>
+            </form>
+          </div>
+         </div>
          }
       </div>
     </div>
