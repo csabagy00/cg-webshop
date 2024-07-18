@@ -8,6 +8,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  height: fit-content;
 }
 
 .acc-options button {
