@@ -1,13 +1,18 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react';
+import { Context } from '../App';
 import { useNavigate } from 'react-router-dom';
 import Details from '../Components/Details';
 import Cart from '../Components/Cart';
-import './css/Account.css'
+import './css/Account.css';
 import Admin from '../Components/Admin';
+import Orders from './Orders';
 
-const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) => {
-  const[show, setShow] = useState(null);
+const Account = () => {
+  const [show, setShow] = useState(null);
+  const [ordersRefresh, setOrdersRefresh] = useState(false)
   const navigate = useNavigate();
+
+  const { user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray} = useContext(Context);
 
   console.log(isAdmin);
   console.log(cartArray);
@@ -30,12 +35,12 @@ const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) =
         </div>
         <button onClick={() => setShow("cart")}>Cart</button>
         <button onClick={() => setShow("details")}>Details</button>
-        <button>Orders</button>
+        <button onClick={() => setShow("orders")}>Orders</button>
         { isAdmin ? <button onClick={() => setShow("admin")}>Admin page</button> : <></>}
         <button onClick={logout}>Logout</button>
       </div>
         { show == "cart" ?
-          <Cart cartArray={cartArray} navigate={navigate}/>
+          <Cart cartArray={cartArray} navigate={navigate} setOrdersRefresh={setOrdersRefresh}/>
         : 
         show == "details" ? 
           <Details user={user}/>
@@ -43,9 +48,11 @@ const Account = ({ user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray }) =
         show == "admin" ? 
           <Admin /> 
         :
+        show == "orders" ?
+          <Orders user={user} />
+        :
         <></>
-        }
-        
+      }
       </div>
     </> 
   )

@@ -39,7 +39,11 @@ public class OrderRepository : IOrderRepository
     {
         try
         {
-            return await _dbContext.Orders.Where(o => o.AppUser.Id == id).ToListAsync();
+            return await _dbContext.Orders
+                .Where(o => o.AppUser.Id == id)
+                .Include(o => o.Products)
+                .ThenInclude(op => op.Product)
+                .ToListAsync();
         }
         catch (Exception e)
         {

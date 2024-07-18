@@ -1,27 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Context } from '../App'
 
 import SearchForm from './SearchForm';
 import "./css/Header.css"
 
-function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setSearchValue, products, filteredProducts, searchValue, setIsAdmin }){
+function Header(){
   var navigate = useNavigate();
-  const [categories, setCategories] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/Category')
-        const result = await response.json()
-        setCategories(result)
-
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    fetchData();
-  }, [])
+  const { products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, categories } = useContext(Context)
 
   const logout = () => {
     localStorage.removeItem("user")
@@ -32,7 +19,6 @@ function Header({ isAuthenticated, setIsAuthenticated, setFilteredProducts, setS
     navigate('/')
 
     console.log(localStorage.getItem("token") == null);
-
   }
 
   const onClickCategory = (c) => {

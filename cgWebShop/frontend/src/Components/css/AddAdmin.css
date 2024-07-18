@@ -1,0 +1,19 @@
+.addAdmin-container {
+  width: 600px;
+}
+
+.addAdmin-top {
+  display: flex;
+}
+
+.addAdmin-top-left {
+  width: 50%;
+}
+
+.addAdmin-top-left {
+  width: 50%;
+}
+
+.addAdmin-bottom {
+  height: fit-content;
+}

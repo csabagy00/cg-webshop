@@ -1,0 +1,25 @@
+.admin-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.admin-options {
+  flex: 0 0 200px;
+  padding: 20px;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+.admin-options button {
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 80px;
+  margin: 10px;
+  height: 25px;
+}
+
+.admin-options button:hover {
+  box-shadow: 2px 2px 7px 0px rgba(0,0,0,0.67); 
+}

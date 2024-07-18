@@ -34,6 +34,26 @@ public class AuthController : ControllerBase
         return CreatedAtAction(nameof(Register), new RegistrationResp(result.Email, result.Username));
     }
 
+    [HttpPost("RegisterAdmin")]
+    public async Task<ActionResult<RegistrationResp>> RegisterAdmin(RegistrationReq req)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var result = await _authService.RegisterAsync(req.Email, req.Username, req.First, req.Middle, req.Last,
+            req.Phone, req.Password, "Admin");
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest();
+        }
+
+        return CreatedAtAction(nameof(Register), new RegistrationResp(result.Email, result.Username));
+    }
+    
+    
+
     [HttpPost("Login")]
     public async Task<ActionResult<AuthResponse>> Login([FromBody] AuthRequest request)
     {
