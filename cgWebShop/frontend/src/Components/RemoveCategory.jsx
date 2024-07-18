@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { Context } from "../App"
+import './css/RemoveCategoryTable.css'
 
 const RemoveCategory = ({ setShowCategoryModal }) => {
 
