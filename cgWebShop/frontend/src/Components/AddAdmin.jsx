@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './css/AddAdmin.css'
 import RegisterForm from './RegisterForm'
+import Modal from './Modal';
 
 const AddAdmin = () => {
   const [show, setShow] = useState("registerAdmin");
@@ -11,6 +12,8 @@ const AddAdmin = () => {
   const [last, setLast] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("")
+
+  const [showModal, setShowModal] = useState(false)
 
   const submitRegister = async (e) => {
     e.preventDefault()
@@ -97,13 +100,24 @@ const AddAdmin = () => {
                 <input type="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
               </div>
               <div className='field-post'>
-                <input className="field-btn" type="submit" value="Change Role"/>
+                <input className="field-btn" value="Change Role" onClick={() => setShowModal(true)}/>
               </div>
+              {showModal ? 
+                <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+                  <div>
+                    <h2>Are you sure you want to add Admin role to {email}?</h2>
+                    <button type='submit'>Change</button>
+                  </div>
+                </Modal> 
+                :
+                <></>
+              }
             </form>
           </div>
          </div>
          }
       </div>
+
     </div>
   )
 }
