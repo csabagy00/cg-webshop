@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import OrdersTable from "../Components/OrdersTable";
+import OrderDetail from "../Components/OrderDetail";
 
 
 const Orders = ({ user }) => {
   const [orders, setOrders] = useState();
+  const [selectedOrder, setSelectedOrder] = useState();
 
   useEffect(() => {
       const fetchData = async () => {
@@ -36,7 +38,11 @@ const Orders = ({ user }) => {
       {orders == null ? 
       <h3>There are no orders yet.</h3>
       :
-      <OrdersTable orders={orders}/>
+      (selectedOrder ? 
+        <OrderDetail order={selectedOrder} setSelectedOrder={setSelectedOrder}/>
+      :
+        <OrdersTable orders={orders} setSelectedOrder={setSelectedOrder}/>
+      )
       }
     </>
   )
