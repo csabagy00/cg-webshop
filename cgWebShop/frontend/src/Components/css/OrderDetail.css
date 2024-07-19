@@ -1,0 +1,31 @@
+.order-detail {
+  display:inline-flex;
+}
+
+.order-detail-back {
+  margin: 10px
+}
+
+.order-info {
+  margin: 40px;
+  padding: 20px;
+  background-color: rgb(185, 185, 185);
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  border-width: 2px;
+  height: fit-content;
+  width: fit-content;
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.order-producttable {
+  margin: 10px;
+  padding: 40px;
+  min-width: 600px;
+}
+
+.order-summary {
+  font-weight: bold;
+}
