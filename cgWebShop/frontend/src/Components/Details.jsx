@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { resolvePath } from "react-router-dom";
 
 const Details = ({ user }) => {
   const [edit, setEdit] = useState(false);
@@ -13,7 +14,31 @@ const Details = ({ user }) => {
     e.preventDefault()
 
     try {
-      
+      const response = await fetch('/api/AppUser', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        },
+        body: JSON.stringify({
+          id: user.id,
+          email: email ? email : "",
+          first: first ? first : "",
+          middle: middle ? middle : "",
+          last: last ? last : "",
+          username: username ? username : "",
+          phone: phone ? phone : ""
+        })
+      })
+
+      if(response.ok){
+        setEmail()
+        setFirst()
+        setMiddle()
+        setLast()
+        setUsername()
+        setPhone()
+      }
     } catch (error) {
       console.error(error)
     }
