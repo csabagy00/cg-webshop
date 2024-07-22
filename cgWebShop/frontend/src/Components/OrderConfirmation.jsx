@@ -62,7 +62,6 @@ console.log(cartArray);
                 <th>Name</th>
                 <th>Category</th>
                 <th>Price</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
