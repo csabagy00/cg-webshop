@@ -8,6 +8,7 @@
   margin-top: 50px;
   padding-right: 20px;
   width: 380px;
+  height: fit-content;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
@@ -23,16 +24,22 @@
   margin-top: 20px;
 }
 
-.form-wrapper form .field input {
+.form-wrapper form .field input,
+.form-wrapper form .field select {
   height: 100%;
   width: 100%;
   outline: none;
   font-size: 17px;
   padding-left: 20px;
-  
   border: 1px solid lightgrey;
   border-radius: 25px;
   transition: all 0.3s ease;
+}
+
+.form-wrapper form .field select {
+
+  appearance: none;
+  background: white;
 }
 
 .field-post {
@@ -44,6 +51,10 @@
 
 .field-post :hover {
   cursor: pointer;
+  background-color: lightgray;
+  border-style:solid;
+  border-width: 1px;
+  border-color: #4158d0;
 }
 
 .field-post input {
@@ -81,8 +92,11 @@ form .field input:valid {
   display: block;
   align-items: center;
 }
+
 form .field input:focus ~ label,
-form .field input:valid ~ label {
+form .field select:focus ~ label,
+form .field input:valid ~ label,
+form .field select:valid ~ label {
   top: 0%;
   font-size: 16px;
   color: #4158d0;
@@ -104,3 +118,8 @@ form .registration-link a {
 form .registration-link a:hover {
   text-decoration: underline;
 }
+
+/*#category-select {
+  margin-left: 50px;
+  margin-top: 20px;
+}*/

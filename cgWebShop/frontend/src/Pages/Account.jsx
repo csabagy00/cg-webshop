@@ -31,7 +31,7 @@ const Account = () => {
     <div className='acc-container'>
       <div className='acc-options'>
         <div className='acc-h2-bg'>
-          <h2>{user.first + (user.middle ? " " + user.middle + " " : " ") + user.last}</h2>
+          <h2 id='acc-fullname'>{user.first + (user.middle ? " " + user.middle + " " : " ") + user.last}</h2>
         </div>
         <button onClick={() => setShow("cart")}>Cart</button>
         <button onClick={() => setShow("details")}>Details</button>

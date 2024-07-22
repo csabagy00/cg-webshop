@@ -10,9 +10,13 @@ const Cart = ({ cartArray, navigate }) => {
             return (<CartItem item={item}/>)
           })
         }
-      <div className='field-post'>
-        <input type='button' onClick={() => navigate('/order')} value="Proceed to order"/>
-      </div>
+        {cartArray.length == 0 ? 
+          <></>
+        :
+          <div className='field-post-cart'>
+            <input type='button' onClick={() => navigate('/order')} value="Proceed to order"/>
+          </div>
+        }
     </div> 
   )
 }

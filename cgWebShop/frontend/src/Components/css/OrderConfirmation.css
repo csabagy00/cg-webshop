@@ -1,3 +1,8 @@
+.confirm-outer {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
 
 .confirm-page{
   margin-top: 20px;

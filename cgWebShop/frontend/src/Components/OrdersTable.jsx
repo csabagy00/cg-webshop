@@ -1,6 +1,6 @@
 import './css/OrdersTable.css'
 
-const OrdersTable = ({ orders }) => {
+const OrdersTable = ({ orders, setSelectedOrder }) => {
   return(
       <div className="orders-table">
         <table>
@@ -21,7 +21,7 @@ const OrdersTable = ({ orders }) => {
                 <td className="table-row">{o.address}</td>
                 <td className="table-row">{o.products.length}</td>
                 <td>
-                  <button>More</button>
+                  <button onClick={() => setSelectedOrder(o)}>More</button>
                 </td>
               </tr>
               )

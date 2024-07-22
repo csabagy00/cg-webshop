@@ -1,31 +1,69 @@
 .acc-container {
   display: flex;
-  height: 100vh;
+  height: 100%;
 }
 
 .acc-options {
   flex: 0 0 200px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: fit-content;
+  height: 95vh;
+  background-color: rgb(226, 226, 226);
+  border-right: solid grey;
+  margin: -1px -10px -10px;
 }
 
 .acc-options button {
-  border-radius: 8px;
+  border: none;
   cursor: pointer;
   min-width: 80px;
-  margin: 10px;
-  height: 25px;
+  height: auto;
+  flex: 1;
+  background-color: rgb(226, 226, 226);
+  font-size: larger;
+  font-weight: bold;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
 .acc-options button:hover {
-  box-shadow: 2px 1px 7px 0px rgba(0,0,0,0.67);;
+  box-shadow: 0px -2px 7px 0px rgba(0,0,0,0.67);;
+  background-color: rgb(199, 199, 199);
 }
 
 .acc-h2-bg {
   background-color: rgb(185, 185, 185);
-  border-radius: 10px;
+}
+
+.acc-cart-items {
+  margin: 15px;
+  width: 100vw;
+  align-items: center;
+}
+
+.field-post-cart {
+  height: 50px;
+  width: 300px;
+  margin-top: 40px;
+  padding-left: 10px;
+}
+
+.field-post-cart input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding-left: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.field-post-cart :hover {
+  cursor: pointer;
+  background-color: lightgray;
+  border-style:solid;
+  border-width: 1px;
+  border-color: #4158d0;
 }
 
 .acc-page {
@@ -33,8 +71,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-color: black;
-  border-style: solid;
   width: fit-content;
   }
   
@@ -56,6 +92,8 @@
 }
 
 .acc-detail label {
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
 }
 
@@ -69,4 +107,23 @@
   padding: 2px;
   min-width: 200px;
   box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.67);
+}
+
+.acc-input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 2px;
+  min-width: 200px;
+  box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.67);
+}
+
+#acc-fullname {
+  font-size:x-large;
+  font-weight: bold;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding: 5px;
 }

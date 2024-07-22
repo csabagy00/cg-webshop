@@ -61,28 +61,28 @@ const ProductForm = () => {
   }
 
   return(
-    <div>
-      <div>
-        <form onSubmit={submitProduct}>
-          <div>
+    <div className='form-page'>
+      <div className='form-wrapper'>
+        <form onSubmit={submitProduct} className='fields'>
+          <div className='field'>
             <label>Name</label>
             <input type='text' onChange={(e) => setName(e.target.value)} required/>
           </div>
-          <div>
+          <div className='field'>
             <label>In Stock</label>
             <input type='text' onChange={(e) => setInStock(e.target.value)} required/>
           </div>
-          <div>
+          <div className='field'>
             <label>Price</label>
             <input type='text' onChange={(e) => setPrice(e.target.value)} required/>
           </div>
-          <div>
+          <div className='field'>
             <label>Image</label>
             <input type='text' onChange={(e) => setImage(e.target.value)}/>
           </div>
-          <div>
+          <div className='field'>
             <label>Category</label>
-            <select name="category" onChange={(e) => handleChange(e)} required>
+            <select id='category-select' name="category" onChange={(e) => handleChange(e)} required>
               <option value="" >Select</option>
               {categories && categories.map((c) => 
               (
@@ -91,7 +91,7 @@ const ProductForm = () => {
                 </option>
               ))}
             </select>
-            <button type='submit'>Submit</button>
+            <input className='field-post' type='submit' value='Submit' />
           </div>
         </form>
       </div>
