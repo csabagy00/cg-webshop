@@ -233,6 +233,49 @@ namespace cgWebShopApi.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("cgWebShopApi.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("cgWebShopApi.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("cgWebShopApi.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -434,6 +477,21 @@ namespace cgWebShopApi.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("cgWebShopApi.Models.CartItem", b =>
+                {
+                    b.HasOne("cgWebShopApi.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId");
+
+                    b.HasOne("cgWebShopApi.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("cgWebShopApi.Models.Order", b =>
                 {
                     b.HasOne("cgWebShopApi.Models.AppUser", "AppUser")
@@ -476,6 +534,11 @@ namespace cgWebShopApi.Migrations
             modelBuilder.Entity("cgWebShopApi.Models.AppUser", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("cgWebShopApi.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("cgWebShopApi.Models.Category", b =>
