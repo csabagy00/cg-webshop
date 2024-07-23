@@ -10,7 +10,7 @@ const Login = () => {
   const [invalidLogin, setInvalidLogin] = useState(false)
   const navigate = useNavigate();
 
-  const { setIsAuthenticated, setIsAdmin } = useContext(Context)
+  const { setIsAuthenticated, setIsAdmin, setCart } = useContext(Context)
 
   const submitLogin = async (e) => {
     e.preventDefault()
@@ -29,6 +29,15 @@ const Login = () => {
   
       if(response.ok){
         const result = await response.json()
+        const cartResp = await fetch(`/api/Cart?userId=${result.id}`)
+
+        if(cartResp.ok){
+          const result = await cartResp.json();
+          setCart(result.cartItems)
+        }else{
+          console.log("failed to get cart");
+        }
+
         localStorage.setItem("token", result.token)
         localStorage.setItem("user", JSON.stringify(result))
 
