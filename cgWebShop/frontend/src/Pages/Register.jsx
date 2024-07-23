@@ -36,16 +36,25 @@ const Register = () => {
       })
 
       if(response.ok){
-        const result = await response.json()
-        setEmail("")
-        setUsername("")
-        setFirst("")
-        setMiddle("")
-        setLast("")
-        setPhone("")
-        setPassword("")
-        navigate("/")
-        console.log(result);
+        const cartResp = await fetch(`/api/Cart?email=${email}`, {
+          method: 'POST'
+        })
+
+        if(cartResp.ok){
+          const result = await response.json()
+          setEmail("")
+          setUsername("")
+          setFirst("")
+          setMiddle("")
+          setLast("")
+          setPhone("")
+          setPassword("")
+          navigate("/")
+          console.log(result);
+        }else{
+          console.log('Acc created, but no cart');
+        }
+
       }else{
         setInvalidReg(true)
       }
