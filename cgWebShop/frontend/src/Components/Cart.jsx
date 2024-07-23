@@ -1,16 +1,16 @@
 import CartItem from '../Components/CartItem';
 
-const Cart = ({ cartArray, navigate }) => {
+const Cart = ({ cart, navigate }) => {
   return(
     <div className='acc-cart-items'>
-        {cartArray.length == 0 ? 
+        {cart.length == 0 ? 
           <p>No products in the cart</p> 
         :
-          cartArray.map(item => {
+          cart.map(item => {
             return (<CartItem item={item}/>)
           })
         }
-        {cartArray.length == 0 ? 
+        {cart.length == 0 ? 
           <></>
         :
           <div className='field-post-cart'>
