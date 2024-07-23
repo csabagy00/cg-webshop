@@ -4,6 +4,7 @@ using cgWebShopApi.Controllers;
 using cgWebShopApi.Data;
 using cgWebShopApi.Models;
 using cgWebShopApi.Respositories;
+using cgWebShopApi.Respositories.Cart;
 using cgWebShopApi.Respositories.Category;
 using cgWebShopApi.Respositories.Orders;
 using cgWebShopApi.Services.Authentication;
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 /////Authentication/////
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
