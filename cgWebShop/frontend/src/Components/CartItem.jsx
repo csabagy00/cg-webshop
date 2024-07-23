@@ -5,8 +5,8 @@ const CartItem = ({item}) => {
 
   return (
     <div className='item-details'>
-      <p>{item.name}</p>
-      <p>Price: {item.price}€</p>
+      <p>{item.product.name}</p>
+      <p>Price: {item.product.price}€</p>
     </div>
   )
 }
