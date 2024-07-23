@@ -12,10 +12,10 @@ const Account = () => {
   const [ordersRefresh, setOrdersRefresh] = useState(false)
   const navigate = useNavigate();
 
-  const { user, setIsAuthenticated, setIsAdmin, isAdmin, cartArray} = useContext(Context);
+  const { user, setIsAuthenticated, setIsAdmin, isAdmin, cart} = useContext(Context);
 
   console.log(isAdmin);
-  console.log(cartArray);
+  console.log(cart);
  
   const logout = () => {
     localStorage.removeItem("user")
@@ -40,7 +40,7 @@ const Account = () => {
         <button onClick={logout}>Logout</button>
       </div>
         { show == "cart" ?
-          <Cart cartArray={cartArray} navigate={navigate} setOrdersRefresh={setOrdersRefresh}/>
+          <Cart cart={cart} navigate={navigate} setOrdersRefresh={setOrdersRefresh}/>
         : 
         show == "details" ? 
           <Details user={user}/>
