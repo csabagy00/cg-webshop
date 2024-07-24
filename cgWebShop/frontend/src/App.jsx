@@ -11,16 +11,13 @@ import Order from './Pages/Order'
 export const Context = createContext();
 
 function App() {
-  const cartArray = [];
-  localStorage.setItem("cart", JSON.stringify(cartArray))
-  
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [products, setProducts] = useState();
   const [filteredProducts, setFilteredProducts] = useState();
   const [categories, setCategories] = useState();
   const [searchValue, setSearchValue] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [cart, setCart] = useState(cartArray);
+  const [cart, setCart] = useState();
   const [ordersRefresh, setOrdersRefresh] = useState(false);
   const [categoriesRefresh, setCategoriesRefresh] = useState(false);
   const [productsRefresh, setProductsRefresh] = useState(false)
@@ -40,12 +37,10 @@ function App() {
     fetchData();
   }, [categoriesRefresh])
 
-  console.log(categoriesRefresh);
-
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   return (
-    <Context.Provider value={{ setProducts, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, cartArray, user, categories, setCategoriesRefresh, categoriesRefresh, productsRefresh, setProductsRefresh }}>
+    <Context.Provider value={{ setProducts, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, user, categories, setCategoriesRefresh, categoriesRefresh, productsRefresh, setProductsRefresh }}>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -59,6 +54,5 @@ function App() {
     </Context.Provider>
   )
 }
-
 
 export default App

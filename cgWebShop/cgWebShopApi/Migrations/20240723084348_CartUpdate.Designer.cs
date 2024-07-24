@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using cgWebShopApi.Data;
@@ -11,9 +12,11 @@ using cgWebShopApi.Data;
 namespace cgWebShopApi.Migrations
 {
     [DbContext(typeof(CgShopContext))]
-    partial class CgShopContextModelSnapshot : ModelSnapshot
+    [Migration("20240723084348_CartUpdate")]
+    partial class CartUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,9 +244,8 @@ namespace cgWebShopApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -258,10 +260,10 @@ namespace cgWebShopApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CartId")
+                    b.Property<int>("CartId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
@@ -270,8 +272,6 @@ namespace cgWebShopApi.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
                 });
@@ -479,17 +479,11 @@ namespace cgWebShopApi.Migrations
 
             modelBuilder.Entity("cgWebShopApi.Models.CartItem", b =>
                 {
-                    b.HasOne("cgWebShopApi.Models.Cart", "Cart")
+                    b.HasOne("cgWebShopApi.Models.Cart", null)
                         .WithMany("CartItems")
-                        .HasForeignKey("CartId");
-
-                    b.HasOne("cgWebShopApi.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("cgWebShopApi.Models.Order", b =>
