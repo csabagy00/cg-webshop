@@ -84,4 +84,26 @@ public class CartRepository : ICartRepository
         }
     }
 
+    public async Task<bool> RemoveCartItemFromCart(int id)
+    {
+        try
+        {
+            var item = await _dbContext.CartItems.FirstOrDefaultAsync(ci => ci.Id == id);
+
+            if (item == null)
+            {
+                return false;
+            }
+            _dbContext.CartItems.Remove(item);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }
+    }
+
 }
