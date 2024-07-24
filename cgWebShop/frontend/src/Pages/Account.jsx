@@ -12,7 +12,7 @@ const Account = () => {
   const [ordersRefresh, setOrdersRefresh] = useState(false)
   const navigate = useNavigate();
 
-  const { user, setIsAuthenticated, setIsAdmin, isAdmin, cart} = useContext(Context);
+  const { user, setIsAuthenticated, setIsAdmin, isAdmin, cart, setCart} = useContext(Context);
 
   console.log(isAdmin);
   console.log(cart);
@@ -40,7 +40,7 @@ const Account = () => {
         <button onClick={logout}>Logout</button>
       </div>
         { show == "cart" ?
-          <Cart cart={cart} navigate={navigate} setOrdersRefresh={setOrdersRefresh}/>
+          <Cart cart={cart} navigate={navigate} setOrdersRefresh={setOrdersRefresh} user={user} setCart={setCart}/>
         : 
         show == "details" ? 
           <Details user={user}/>
