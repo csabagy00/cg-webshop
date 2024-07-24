@@ -32,8 +32,8 @@ const Login = () => {
         const cartResp = await fetch(`/api/Cart?userId=${result.id}`)
 
         if(cartResp.ok){
-          const result = await cartResp.json();
-          setCart(result.cartItems)
+          const cartResult = await cartResp.json();
+          setCart(cartResult.cartItems)
         }else{
           console.log("failed to get cart");
         }
