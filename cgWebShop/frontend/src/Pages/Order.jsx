@@ -11,13 +11,13 @@ const Order = () => {
   const [country, setCountry] = useState()
   const [postal, setPostal] = useState()
 
-  const { cartArray, user } = useContext(Context);
+  const { cart, user } = useContext(Context);
 
   return(
     orderState == 1 ? 
     <ShippingInfo address={address} setAddress={setAddress} city={city} setCity={setCity} country={country} setCountry={setCountry} postal={postal} setPostal={setPostal} setOrderState={setOrderState}/>
     :
-    <OrderConfirmation cartArray={cartArray} address={address} city={city} country={country} postal={postal} user={user}/>
+    <OrderConfirmation cart={cart} address={address} city={city} country={country} postal={postal} user={user}/>
   )
 }
 

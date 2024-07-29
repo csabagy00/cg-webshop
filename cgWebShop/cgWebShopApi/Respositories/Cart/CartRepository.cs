@@ -22,6 +22,7 @@ public class CartRepository : ICartRepository
             var cart = await _dbContext.Carts
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
+                .ThenInclude(p => p.Category)
                 .FirstOrDefaultAsync(c => c.UserId == id);
 
             if (cart == null)
@@ -60,22 +61,25 @@ public class CartRepository : ICartRepository
         }
     }
 
-    public async Task<CartItem> AddNewCartItemToCart(Product product, string userId, int quantity)
+    public async Task<CartItem?> AddNewCartItemToCart(Product product, string userId, int quantity)
     {
         try
         {
             var cart = await _dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == userId);
 
-            CartItem item = new CartItem{ Cart = cart, Product = product, Quantity = quantity};
+            Models.Cart newCart = new Models.Cart { UserId = userId, CartItems = new List<CartItem>() };
+            
+            CartItem item = new CartItem{ Cart = cart ?? newCart, Product = product, Quantity = quantity};
 
             await _dbContext.CartItems.AddAsync(item);
-            
+        
             _dbContext.Entry(item.Product.Category).State = EntityState.Unchanged;
             _dbContext.Entry(item.Product).State = EntityState.Unchanged;
-            
+        
             await _dbContext.SaveChangesAsync();
 
             return item;
+            
         }
         catch (Exception e)
         {
