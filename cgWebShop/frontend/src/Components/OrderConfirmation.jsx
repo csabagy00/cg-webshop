@@ -1,7 +1,7 @@
 import { resolvePath, useNavigate } from 'react-router-dom';
 import './css/OrderConfirmation.css'
 
-const OrderConfirmation = ({ cart, address, city, country, postal, user }) => {
+const OrderConfirmation = ({ setCart, cart, address, city, country, postal, user }) => {
   const navigate = useNavigate();
 
   const orderObj = {
@@ -25,7 +25,17 @@ const OrderConfirmation = ({ cart, address, city, country, postal, user }) => {
       })
 
       if(response.ok){
-        navigate("/")
+        const result = await response.json();
+        console.log(result);
+
+        const removeResp = await fetch(`/api/Cart/Cart?userId=${result.appUser.id}`, {
+          method: 'DELETE'
+        })
+
+        if(removeResp.ok){
+          setCart([])
+          navigate("/")
+        }
 
       } 
 
