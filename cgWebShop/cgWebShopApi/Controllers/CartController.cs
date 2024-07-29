@@ -86,4 +86,23 @@ public class CartController : ControllerBase
             throw;
         }
     }
+
+    [HttpDelete("Cart")]
+    public async Task<ActionResult> RemoveItemsFromCart(string userId)
+    {
+        try
+        {
+            var result = await _cartRepository.RemoveAllItemsFromCart(userId);
+
+            if (!result)
+                return BadRequest();
+            
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            throw;
+        }  
+    }
 }
