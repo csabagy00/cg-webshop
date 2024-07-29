@@ -1,12 +1,11 @@
 import { resolvePath, useNavigate } from 'react-router-dom';
 import './css/OrderConfirmation.css'
 
-const OrderConfirmation = ({ cartArray, address, city, country, postal, user }) => {
+const OrderConfirmation = ({ cart, address, city, country, postal, user }) => {
   const navigate = useNavigate();
-console.log(cartArray);
 
   const orderObj = {
-    products: cartArray,
+    products: cart.map(c => c.product),
     date: new Date().toISOString(),
     address: address,
     city: city,
@@ -16,8 +15,7 @@ console.log(cartArray);
 
   const postOrder = async () => {
     try {
-
-      const response = fetch('/api/Order', {
+      const response = await fetch('/api/Order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,8 +23,11 @@ console.log(cartArray);
         },
         body: JSON.stringify(orderObj)
       })
-    
-      navigate("/")
+
+      if(response.ok){
+        navigate("/")
+
+      } 
 
     } catch (error) {
       console.error(error)
@@ -65,13 +66,13 @@ console.log(cartArray);
               </tr>
             </thead>
             <tbody>
-              {cartArray && cartArray.map((p, i) => {
+              {cart && cart.map((ci, i) => {
                 return (
-                <tr key={p.id}>
+                <tr key={ci.id}>
                   <td>{i + 1}</td>
-                  <td>{p.name}</td>
-                  <td>{p.category.name}</td>
-                  <td>{p.price}</td>
+                  <td>{ci.product.name}</td>
+                  <td>{ci.product.category.name}</td>
+                  <td>{ci.product.price}</td>
                 </tr>)
               })}
             </tbody>
