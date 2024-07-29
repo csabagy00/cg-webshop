@@ -54,7 +54,11 @@ public class CartController : ControllerBase
     {
         try
         { 
-            await _cartRepository.AddNewCartItemToCart(product, userId, quantity);
+            var result = await _cartRepository.AddNewCartItemToCart(product, userId, quantity);
+
+            if (result == null)
+                return BadRequest();
+            
             return Ok();
         }
         catch (Exception e)
