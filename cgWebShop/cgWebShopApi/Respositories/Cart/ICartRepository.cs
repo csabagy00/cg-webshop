@@ -9,4 +9,5 @@ public interface ICartRepository
 
     public Task<CartItem?> AddNewCartItemToCart(Product product, string userId, int quantity);
     public Task<bool> RemoveCartItemFromCart(int id);
+    public Task<bool> RemoveAllItemsFromCart(string userId);
 }
