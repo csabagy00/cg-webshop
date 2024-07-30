@@ -81,6 +81,9 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+    var context = scope.ServiceProvider.GetRequiredService<CgShopContext>();
+    context.Database.Migrate();
+    
     var authenticationSeeder = scope.ServiceProvider.GetRequiredService<AuthenticationSeeder>();
     authenticationSeeder.AddRoles();
     authenticationSeeder.AddAdmin();
