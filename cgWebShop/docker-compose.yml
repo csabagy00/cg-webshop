@@ -1,0 +1,36 @@
+﻿services:
+  database:
+    image: postgres:latest
+    ports: 
+      - 5433:5432
+    environment:
+      POSTGRES_DB: cgwebshop
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      
+  cgwebshopapi:
+    ports:
+      - 8080:80
+    image: cgwebshopapi:latest
+    build:
+      context: .
+      dockerfile: cgWebShopApi/Dockerfile
+    depends_on:
+      - database
+    environment:
+      VALID_ISSUER: CgWebSHopIssuer
+      VALID_AUDIENCE: CgWebSHopAudience
+      ISSUER_SIGNING_KEY: CgWebShop!Issuer!Secret??Signing-Key
+      CONNECTION_STRING: Host=database;Port=5432;User Id=postgres;Password=postgres;Database=cgwebshop
+      ROLE_1: Admin
+      ROLE_2: User
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: frontend:latest
+    ports: 
+      - 5173:5173
+    environment:
+      VITE_PROXY: http://cgwebshopapi:80
