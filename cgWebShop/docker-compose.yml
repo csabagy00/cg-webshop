@@ -13,8 +13,8 @@
       - 8080:80
     image: cgwebshopapi:latest
     build:
-      context: .
-      dockerfile: cgWebShopApi/Dockerfile
+      context: ./cgWebShopApi
+      dockerfile: Dockerfile
     depends_on:
       - database
     environment:
