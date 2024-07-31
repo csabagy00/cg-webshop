@@ -6,10 +6,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["cgWebShopApi.csproj", "cgWebShopApi/"]
+COPY ["cgWebShopApi.csproj", "."]
 RUN dotnet restore "cgWebShopApi.csproj"
 COPY . .
-WORKDIR "/src/cgWebShopApi"
+WORKDIR "/src"
 RUN dotnet build "cgWebShopApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
