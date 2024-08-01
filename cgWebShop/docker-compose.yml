@@ -11,7 +11,7 @@
   cgwebshopapi:
     ports:
       - 8080:80
-    image: cgwebshopapi:latest
+    image: csabagy00/cgwebshopapi:latest
     build:
       context: ./cgWebShopApi
       dockerfile: Dockerfile
@@ -29,7 +29,7 @@
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: frontend:latest
+    image: csabagy00/frontend:latest
     ports: 
       - 5173:5173
     environment:
