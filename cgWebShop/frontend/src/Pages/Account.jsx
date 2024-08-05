@@ -13,9 +13,6 @@ const Account = () => {
   const navigate = useNavigate();
 
   const { user, setIsAuthenticated, setIsAdmin, isAdmin, cart, setCart} = useContext(Context);
-
-  console.log(isAdmin);
-  console.log(cart);
  
   const logout = () => {
     localStorage.removeItem("user")
@@ -57,6 +54,5 @@ const Account = () => {
     </> 
   )
 }
-
 
 export default Account

@@ -17,7 +17,6 @@ const deleteCategory = async (id) => {
     })
 
     if(!response.ok){
-      console.log("didn't delete");
       setShowCategoryModal(true)
     }else{
       setCategoriesRefresh(!categoriesRefresh)

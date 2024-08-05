@@ -17,7 +17,6 @@ const SearchForm = ({ setSearchValue, filteredProducts, setFilteredProducts, pro
     :
     setFilteredProducts(products.filter(p => p.name.includes(searchInput)))
 
-    console.log(filteredProducts);
   }
 
   return(

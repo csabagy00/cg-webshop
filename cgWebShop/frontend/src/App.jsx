@@ -18,7 +18,6 @@ function App() {
   const [searchValue, setSearchValue] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [cart, setCart] = useState();
-  const [ordersRefresh, setOrdersRefresh] = useState(false);
   const [categoriesRefresh, setCategoriesRefresh] = useState(false);
   const [productsRefresh, setProductsRefresh] = useState(false)
 

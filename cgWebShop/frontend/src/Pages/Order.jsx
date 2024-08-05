@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { Context } from "../App.jsx";
-import { useNavigate } from "react-router-dom"
 import ShippingInfo from '../Components/ShippingInfo.jsx'
 import OrderConfirmation from "../Components/OrderConfirmation.jsx"
 
@@ -15,7 +14,17 @@ const Order = () => {
 
   return(
     orderState == 1 ? 
-    <ShippingInfo address={address} setAddress={setAddress} city={city} setCity={setCity} country={country} setCountry={setCountry} postal={postal} setPostal={setPostal} setOrderState={setOrderState}/>
+    <ShippingInfo 
+      address={address} 
+      setAddress={setAddress} 
+      city={city} 
+      setCity={setCity}
+      country={country} 
+      setCountry={setCountry} 
+      postal={postal} 
+      setPostal={setPostal} 
+    setOrderState={setOrderState}/>
+
     :
     <OrderConfirmation setCart={setCart} cart={cart} address={address} city={city} country={country} postal={postal} user={user}/>
   )

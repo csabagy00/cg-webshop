@@ -34,13 +34,6 @@ public class CgShopContext : IdentityDbContext<AppUser, IdentityRole, string>
             .HasForeignKey("CategoryId")
             .OnDelete(DeleteBehavior.Restrict);
         
-        /*List<Product> products = new List<Product>
-        {
-            new {CategoryId = 1, Id = 1, Img = (string)null, InStock = 5, Name = "Laptop", Price = 500},
-            new {CategoryId = 2, Id = 2, Img = null, InStock = 5, Name = "Tools Set", Price = 200},
-            new {CategoryId = 3, Id = 3, Img = null, InStock = 5, Name = "Sofa", Price = 700}
-        };*/
-        
         builder.Entity<Category>().HasData(categories);
         builder.Entity<Product>().HasData(
             new

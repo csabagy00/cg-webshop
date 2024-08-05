@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../App'
 
@@ -17,18 +17,14 @@ function Header(){
     setIsAdmin(false)
 
     navigate('/')
-
-    console.log(localStorage.getItem("token") == null);
   }
 
   const onClickCategory = (c) => {
-    console.log("clicked category");
 
     if(searchValue != null){
-      console.log("search + cat");
       setFilteredProducts(products.filter(p => p.category.name == c.name && p.name.includes(searchValue)))
+
     } else {
-      console.log("cat");
       setFilteredProducts(products.filter(p => p.category.name == c.name))
     }
   }
