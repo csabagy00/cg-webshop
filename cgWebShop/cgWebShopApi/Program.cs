@@ -1,6 +1,5 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using cgWebShopApi.Controllers;
 using cgWebShopApi.Data;
 using cgWebShopApi.Models;
 using cgWebShopApi.Respositories;
@@ -21,61 +20,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 ConfigureSwagger();
 
-/////Services/////
-builder.Services.AddControllers();
-builder.Services.AddControllers().AddJsonOptions(x =>
-    x.JsonSerializerOptions.ReferenceHandler =  ReferenceHandler.IgnoreCycles);
-builder.Services.AddScoped<AuthenticationSeeder>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<ICartRepository, CartRepository>();
+AddServices();
 
-/////Authentication/////
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        var validIssuer = Environment.GetEnvironmentVariable("VALID_ISSUER") ?? builder.Configuration["AppSettings:ValidIssuer"];
-        var validAudience = Environment.GetEnvironmentVariable("VALID_AUDIENCE") ?? builder.Configuration["AppSettings:ValidAudience"];
-        var issuerSigningKey = Environment.GetEnvironmentVariable("ISSUER_SIGNING_KEY") ?? builder.Configuration["AppSettings:IssuerSigningKey"];
-        
-        options.TokenValidationParameters = new TokenValidationParameters()
-        {
-            ClockSkew = TimeSpan.Zero,
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = validIssuer,
-            ValidAudience = validAudience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(issuerSigningKey!))
-        };
-    });
+AddAuthentication();
 
-/////IdentityCore/////
-builder.Services.AddIdentityCore<AppUser>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-        options.User.RequireUniqueEmail = true;
-        options.Password.RequireDigit = false;
-        options.Password.RequiredLength = 6;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequireLowercase = false;
-    })
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<CgShopContext>();
+AddIdentityCore();
 
-/////DbContext/////
-builder.Services.AddDbContext<CgShopContext>(options =>
-{
-    options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? builder.Configuration["ConnectionString"]);
-});
-
+AddDbContext();
 
 var app = builder.Build();
 
@@ -93,7 +44,6 @@ using (var scope = app.Services.CreateScope())
     authenticationSeeder.AddAdmin();
 }
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -109,6 +59,69 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void AddServices()
+{
+    builder.Services.AddControllers();
+    builder.Services.AddControllers().AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler =  ReferenceHandler.IgnoreCycles);
+    builder.Services.AddScoped<AuthenticationSeeder>();
+    builder.Services.AddScoped<ITokenService, TokenService>();
+    builder.Services.AddScoped<IAuthService, AuthService>();
+    builder.Services.AddScoped<IRoleService, RoleService>();
+    builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+    builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+    builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+    builder.Services.AddScoped<ICartRepository, CartRepository>();
+}
+
+void AddDbContext()
+{
+    builder.Services.AddDbContext<CgShopContext>(options =>
+    {
+        options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? builder.Configuration["ConnectionString"]);
+    });
+}
+
+void AddIdentityCore()
+{
+    builder.Services.AddIdentityCore<AppUser>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+            options.User.RequireUniqueEmail = true;
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = false;
+        })
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<CgShopContext>();
+}
+
+void AddAuthentication()
+{
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            var validIssuer = Environment.GetEnvironmentVariable("VALID_ISSUER") ?? builder.Configuration["AppSettings:ValidIssuer"];
+            var validAudience = Environment.GetEnvironmentVariable("VALID_AUDIENCE") ?? builder.Configuration["AppSettings:ValidAudience"];
+            var issuerSigningKey = Environment.GetEnvironmentVariable("ISSUER_SIGNING_KEY") ?? builder.Configuration["AppSettings:IssuerSigningKey"];
+        
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ClockSkew = TimeSpan.Zero,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = validIssuer,
+                ValidAudience = validAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(issuerSigningKey!))
+            };
+        });
+}
 
 void ConfigureSwagger()
 {
