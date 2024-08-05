@@ -41,7 +41,7 @@ const Register = () => {
         })
 
         if(cartResp.ok){
-          const result = await response.json()
+          await response.json()
           setEmail("")
           setUsername("")
           setFirst("")
@@ -50,7 +50,7 @@ const Register = () => {
           setPhone("")
           setPassword("")
           navigate("/")
-          console.log(result);
+
         }else{
           console.log('Acc created, but no cart');
         }
@@ -67,7 +67,14 @@ const Register = () => {
 
   return(
     <>
-      <RegisterForm setEmail={setEmail} setUsername={setUsername} setFirst={setFirst} setMiddle={setMiddle} setLast={setLast} setPhone={setPhone} setPassword={setPassword} submitRegister={submitRegister}/>
+      <RegisterForm setEmail={setEmail} 
+        setUsername={setUsername} 
+        setFirst={setFirst} setMiddle={setMiddle} 
+        setLast={setLast} 
+        setPhone={setPhone} 
+        setPassword={setPassword} 
+      submitRegister={submitRegister}/>
+
       <Modal isOpen={invalidReg} onClose={() => setInvalidReg(false)}>
         <p>Invalid registration data</p>
       </Modal>

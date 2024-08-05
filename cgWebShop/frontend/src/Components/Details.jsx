@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { resolvePath } from "react-router-dom";
 
 const Details = ({ user }) => {
   const [edit, setEdit] = useState(false);

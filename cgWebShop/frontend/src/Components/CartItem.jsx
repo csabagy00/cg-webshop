@@ -12,7 +12,6 @@ const CartItem = ({ item, user, setCart }) => {
 
       if(cartResp.ok){
         const result = await cartResp.json();
-        console.log(result);
 
         setCart(result.cartItems)
       }

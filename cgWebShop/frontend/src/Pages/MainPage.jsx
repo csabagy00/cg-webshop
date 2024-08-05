@@ -7,7 +7,7 @@ import Modal from "../Components/Modal";
 function MainPage(){
   const [openModal, setOpenModal] = useState(false)
 
-  const { products, filteredProducts, setProducts, searchValue, setCart, cart, isAuthenticated, productsRefresh } = useContext(Context)
+  const { products, filteredProducts, setProducts, setCart, isAuthenticated, productsRefresh } = useContext(Context)
  
   useEffect(() => {
     const fetchData = async () => {
