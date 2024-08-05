@@ -49,8 +49,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and Push Images
       run: | 
-        docker-compose -f docker-compose.yml build
-        docker-compose -f docker-compose.yml push
+        docker compose -f docker-compose.yml build
+        docker compose -f docker-compose.yml push
     - name: Redeploy services on Render
       run: | 
         curl ${{ secrets.RENDER_BACKEND_URL }}
