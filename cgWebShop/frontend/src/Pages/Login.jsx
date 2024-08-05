@@ -34,6 +34,7 @@ const Login = () => {
         if(cartResp.ok){
           const cartResult = await cartResp.json();
           setCart(cartResult.cartItems)
+          
         }else{
           console.log("failed to get cart");
         }
@@ -52,12 +53,9 @@ const Login = () => {
         
         navigate('/')
 
-        console.log(localStorage.getItem("token"))
-        console.log(JSON.parse(localStorage.getItem("user")))
-        console.log(invalidLogin);
       } else {
         setInvalidLogin(true)
-        console.log(invalidLogin);
+
       }
     } catch (error) {
       console.error("Error submiting:"), error

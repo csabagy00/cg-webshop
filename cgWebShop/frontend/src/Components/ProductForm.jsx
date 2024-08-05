@@ -35,9 +35,6 @@ const ProductForm = () => {
     }
 
     try {
-
-      console.log(productObj);
-
       const response = await fetch('/api/Products', {
         method: 'POST',
         headers: {

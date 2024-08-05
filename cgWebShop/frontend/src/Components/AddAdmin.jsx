@@ -36,9 +36,9 @@ const AddAdmin = () => {
       })
 
       if(response.ok){
-        const result = await response.json()
+        await response.json()
         StatesToBaseValue();
-        console.log(result);
+
       }else{
         console.log("AddAdmin!!!");
       }
