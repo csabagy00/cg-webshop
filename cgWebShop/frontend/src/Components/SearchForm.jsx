@@ -4,7 +4,7 @@ const SearchForm = ({ setSearchValue, filteredProducts, setFilteredProducts, pro
   const handleSearch = (e) => {
     e.preventDefault();
 
-    let searchInput = document.getElementById('searchV').value ? document.getElementById('searchV').value : null;
+    let searchInput = document.getElementById('searchV').value ? document.getElementById('searchV').value.toLowerCase() : null;
 
     if(searchInput == null){
       setFilteredProducts(null)
@@ -13,17 +13,19 @@ const SearchForm = ({ setSearchValue, filteredProducts, setFilteredProducts, pro
     setSearchValue(searchInput)
 
     filteredProducts != null ? 
-      filteredProducts.filter(p => p.name.includes(searchInput))
+      filteredProducts.filter(p => p.name.toLowerCase().includes(searchInput))
     :
-    setFilteredProducts(products.filter(p => p.name.includes(searchInput)))
+    setFilteredProducts(products.filter(p => p.name.toLowerCase().includes(searchInput)))
 
   }
 
   return(
-    <form onSubmit={handleSearch}>
-      <input type='text' id='searchV'placeholder="Search..."/>
-      <button type='submit' >Search</button>
-    </form>
+    <div className="search-container">
+      <form onSubmit={handleSearch}>
+        <input type='text' id='searchV'placeholder="Search..."/>
+        <button className="search-btn" type='submit' >&#x1F50D;</button>
+      </form>
+    </div>
   )
 }
 
