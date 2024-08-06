@@ -1,16 +1,28 @@
 import { useEffect, useState } from 'react'
 import { useContext } from 'react'
 import { Context } from '../App'
+import Modal from './Modal'
 
 
 const ProductForm = () => {
-  const [selectedCategory, setSelectedCategory] = useState()
-  const [name, setName] = useState()
-  const [inStock, setInStock] = useState()
-  const [price, setPrice] = useState()
-  const [image, setImage] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [name, setName] = useState();
+  const [inStock, setInStock] = useState();
+  const [price, setPrice] = useState();
+  const [image, setImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [correct, setCorrect] = useState(true);
 
   const { categories } = useContext(Context);
+
+  const productObj = {
+    id: 0,
+    category: selectedCategory,
+    name: name,
+    inStock: inStock,
+    price: price,
+    img: image
+  };
 
   const handleChange = (e) => {
     const id = parseInt(e.target.value)
@@ -25,16 +37,7 @@ const ProductForm = () => {
   const submitProduct = async (e) => {
     e.preventDefault()
 
-    const productObj = {
-      id: 0,
-      category: selectedCategory,
-      name: name,
-      inStock: inStock,
-      price: price,
-      img: image
-    }
-
-    try {
+    try {   
       const response = await fetch('/api/Products', {
         method: 'POST',
         headers: {
@@ -43,13 +46,11 @@ const ProductForm = () => {
         body: JSON.stringify(productObj)
       })
 
-      const result = await response.json()
-
       if(response.ok){
-        console.log("!!!");
-        console.log(result);
+          setShowModal(true)
       }else{
-        console.log("???");
+          setCorrect(false)
+          setShowModal(true)
       }
 
     } catch (error) {
@@ -92,6 +93,14 @@ const ProductForm = () => {
           </div>
         </form>
       </div>
+      <Modal isOpen={showModal} onClose={() => {setShowModal(false) 
+        setCorrect(true) } }>
+        { correct ?
+          <h3>Successfully added {productObj.name}</h3>
+          :
+          <h3>Incorrect input</h3>
+        }
+      </Modal>
     </div>
   )
 }
