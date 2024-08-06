@@ -13,7 +13,7 @@ const ProductForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [correct, setCorrect] = useState(true);
 
-  const { categories } = useContext(Context);
+  const { categories, productsRefresh, setProductsRefresh } = useContext(Context);
 
   const productObj = {
     id: 0,
@@ -48,6 +48,7 @@ const ProductForm = () => {
 
       if(response.ok){
           setShowModal(true)
+          setProductsRefresh(!productsRefresh)
       }else{
           setCorrect(false)
           setShowModal(true)
