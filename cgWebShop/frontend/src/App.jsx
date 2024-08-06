@@ -25,9 +25,20 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-       const response = await fetch('/api/Category');
-       const result = await response.json();
-       setCategories(result);
+        const [categoriesResponse, productsResponse] = await Promise.all([
+          fetch('/api/Category'),
+          fetch('/api/Products')
+        ])
+
+        if(!categoriesResponse.ok || !productsResponse.ok){
+          throw new Error('One or more fetch request failed')
+        }
+
+        const categoriesResult = await categoriesResponse.json();
+        const productsResult = await productsResponse.json();
+
+        setCategories(categoriesResult);
+        setProducts(productsResult)
 
       } catch (error) {
         console.error(error)
@@ -35,12 +46,12 @@ function App() {
     }
 
     fetchData();
-  }, [categoriesRefresh])
+  }, [categoriesRefresh, productsRefresh])
 
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
   return (
-    <Context.Provider value={{ setShowAcc, showAcc, setProducts, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, user, categories, setCategoriesRefresh, categoriesRefresh, productsRefresh, setProductsRefresh }}>
+    <Context.Provider value={{ setShowAcc, showAcc, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, isAdmin, cart, setCart, user, categories, setCategoriesRefresh, categoriesRefresh, productsRefresh, setProductsRefresh }}>
       <BrowserRouter>
         <Header />
         <Routes>
