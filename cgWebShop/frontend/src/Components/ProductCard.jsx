@@ -5,7 +5,7 @@ const ProductCard = ({ key, product, addToCart, isAuthenticated, setOpenModal })
 
   return(
       <div className="prod-card">
-        <img src="../public/images/no-img.jpg" className="card-img"/>
+        <img src={ product.img ? product.img : "../public/images/no-img.jpg"} className="card-img"/>
         <div className="card-content">
           <h2>{product.name}</h2>
           <p>{product.price}</p>
