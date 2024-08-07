@@ -55,7 +55,8 @@
 }
 
 .cart-btn {
-  display: flex;
+  position: relative;
+  display: inline-block;
   align-items: center;
   margin-left: 10px;
   font-size:x-large;
@@ -78,4 +79,25 @@
   cursor: pointer;
   font-size:small;
   border-radius: 0 25px 25px 0;
+}
+
+.cart-counter-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  background-color: white;
+  border-radius: 50px;
+  height: 16px;
+  width: 17px;
+  justify-content: center;
+  align-items: center;
+  transform: translate(50%, -50%);
+}
+
+.cart-counter {
+  font-size: large;
 }
