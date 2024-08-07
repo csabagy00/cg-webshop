@@ -11,13 +11,14 @@ const Account = () => {
   const [ordersRefresh, setOrdersRefresh] = useState(false)
   const navigate = useNavigate();
 
-  const { setShowAcc, showAcc, user, setIsAuthenticated, setIsAdmin, isAdmin, cart, setCart} = useContext(Context);
+  const { setCartCounter, setShowAcc, showAcc, user, setIsAuthenticated, setIsAdmin, isAdmin, cart, setCart} = useContext(Context);
  
   const logout = () => {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     setIsAuthenticated(false)
     setIsAdmin(false)
+    setCartCounter(0)
     navigate('/')
 
   }

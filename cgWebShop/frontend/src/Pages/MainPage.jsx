@@ -7,7 +7,7 @@ import Modal from "../Components/Modal";
 function MainPage(){
   const [openModal, setOpenModal] = useState(false)
 
-  const { products, filteredProducts, setCart, isAuthenticated } = useContext(Context)
+  const { products, filteredProducts, setCart, setCartCounter, cart, isAuthenticated } = useContext(Context)
  
   const addToCart = async (product) => {
     const user = JSON.parse(localStorage.getItem("user"))
@@ -38,7 +38,7 @@ function MainPage(){
       if(cartResp.ok){
         const result = await cartResp.json();
         setCart(result.cartItems)
-        
+        setCartCounter(result.cartItems.length)
       };
     };
   }
