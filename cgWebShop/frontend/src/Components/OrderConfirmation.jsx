@@ -1,8 +1,12 @@
-import { resolvePath, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './css/OrderConfirmation.css'
+import { useContext } from 'react';
+import { Context } from '../App';
 
 const OrderConfirmation = ({ setCart, cart, address, city, country, postal, user }) => {
   const navigate = useNavigate();
+
+  const { setCartCounter } = useContext(Context)
 
   const orderObj = {
     products: cart.map(c => c.product),
@@ -34,6 +38,7 @@ const OrderConfirmation = ({ setCart, cart, address, city, country, postal, user
 
         if(removeResp.ok){
           setCart([])
+          setCartCounter(0)
           navigate("/")
         }
 

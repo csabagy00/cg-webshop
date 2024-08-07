@@ -1,6 +1,10 @@
+import { useContext } from 'react'
+import { Context } from '../App'
 import './css/CartItem.css'
 
 const CartItem = ({ item, user, setCart }) => {
+
+  const { setCartCounter } = useContext(Context)
 
   const removeFromCart = async () => {
     const response = await fetch(`/api/Cart?itemId=${item.id}`, {
@@ -14,6 +18,7 @@ const CartItem = ({ item, user, setCart }) => {
         const result = await cartResp.json();
 
         setCart(result.cartItems)
+        setCartCounter(result.cartItems.length)
       }
     }
   }
