@@ -7,41 +7,7 @@ import Modal from "../Components/Modal";
 function MainPage(){
   const [openModal, setOpenModal] = useState(false)
 
-  const { products, filteredProducts, setCart, setCartCounter, cart, isAuthenticated } = useContext(Context)
- 
-  const addToCart = async (product) => {
-    const user = JSON.parse(localStorage.getItem("user"))
-
-    const response = await fetch(`/api/Cart/Item?userId=${user.id}&quantity=1`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        id: product.id,
-        category: {
-          id: product.category.id,
-          name: product.category.name,
-          products: [
-          ]
-        },
-        name: product.name,
-        inStock: product.inStock,
-        price: product.price,
-        img: product.img
-      })
-    })
-
-    if(response.ok){
-      const cartResp = await fetch(`/api/Cart?userId=${user.id}`);
-
-      if(cartResp.ok){
-        const result = await cartResp.json();
-        setCart(result.cartItems)
-        setCartCounter(result.cartItems.length)
-      };
-    };
-  }
+  const { addToCart, products, filteredProducts, isAuthenticated } = useContext(Context)
 
   return(
     <>
