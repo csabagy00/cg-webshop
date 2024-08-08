@@ -70,6 +70,7 @@ const Details = ({ user }) => {
                 <input className='acc-input' type="text" onChange={(e) => setPhone(e.target.value)} value={phone} placeholder={user.phone}/>
               </div>
               <button className='btn' type="submit">Save</button>
+              <button className='btn' onClick={() => setEdit(false)}>Cancel</button>
             </form>
           </>
           :

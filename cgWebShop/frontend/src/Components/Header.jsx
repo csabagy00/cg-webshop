@@ -11,14 +11,14 @@ function Header(){
 
   var navigate = useNavigate();
 
-  const { setShowAcc, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, categories } = useContext(Context)
+  const { setCartCounter, cartCounter, setShowAcc, products, isAuthenticated, setIsAuthenticated, filteredProducts, setFilteredProducts, searchValue, setSearchValue, setIsAdmin, categories } = useContext(Context)
 
   const logout = () => {
     localStorage.removeItem("user")
     localStorage.removeItem("token")
     setIsAuthenticated(false)
     setIsAdmin(false)
-
+    setCartCounter(0)
     navigate('/')
   }
 
@@ -81,6 +81,9 @@ function Header(){
           <SearchForm setSearchValue={setSearchValue} searchValue={searchValue} filteredProducts={filteredProducts} setFilteredProducts={setFilteredProducts} products={products}/>
           <div className='cart-btn' onClick={() => onClickCartIcon()}>
             <i className="fas fa-shopping-cart"></i>
+            <div className='cart-counter-container'>
+              <span className='cart-counter'>{cartCounter}</span> 
+            </div>
           </div>
         </div>
       </nav>
