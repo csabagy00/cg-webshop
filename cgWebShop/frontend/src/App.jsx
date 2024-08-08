@@ -94,7 +94,7 @@ function App() {
           <Route path='/register' element={<Register />}/>
           <Route path='/account' element={<Account />}/>
           <Route path='/order' element={<Order />} />
-          <Route path='/products/:productName' element={<ProductInfo products={products} addToCart={addToCart}/>} />
+          <Route path='/products/:productName' element={<ProductInfo products={products} addToCart={addToCart} isAuthenticated={isAuthenticated}/>} />
         </Routes>
       </BrowserRouter>
     </Context.Provider>
