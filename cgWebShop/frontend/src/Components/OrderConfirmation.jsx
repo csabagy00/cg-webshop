@@ -17,6 +17,8 @@ const OrderConfirmation = ({ setCart, cart, address, city, country, postal, user
     postalCode: postal
   }
 
+  let summary = 0;
+
   const postOrder = async () => {
     try {
       const response = await fetch('/api/Order', {
@@ -82,6 +84,8 @@ const OrderConfirmation = ({ setCart, cart, address, city, country, postal, user
             </thead>
             <tbody>
               {cart && cart.map((ci, i) => {
+                summary += ci.product.price
+              
                 return (
                 <tr key={ci.id}>
                   <td>{i + 1}</td>
@@ -90,6 +94,12 @@ const OrderConfirmation = ({ setCart, cart, address, city, country, postal, user
                   <td>{ci.product.price}</td>
                 </tr>)
               })}
+              <tr>
+                <td>Summary</td>
+                <td></td>
+                <td></td>
+                <td>{summary}</td>
+              </tr>
             </tbody>
           </table>
         </div>
