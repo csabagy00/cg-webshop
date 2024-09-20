@@ -51,10 +51,10 @@
 
 .field-post :hover {
   cursor: pointer;
-  background-color: lightgray;
+  background-color: rgb(241, 241, 241);
   border-style:solid;
   border-width: 1px;
-  border-color: #4158d0;
+  border-color: orange;
 }
 
 .field-post input {
@@ -75,7 +75,7 @@
 
 .form-wrapper form .field input:focus,
 form .field input:valid {
-  border-color: #4158d0;
+  border-color: rgb(255, 211, 130);
 }
 
 .form-wrapper form .field label {
