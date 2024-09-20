@@ -25,9 +25,11 @@ const CartItem = ({ item, user, setCart }) => {
 
   return (
     <div className='item-details'>
-      <p>{item.product.name}</p>
-      <p>Price: {item.product.price}€</p>
-      <button onClick={() => removeFromCart()}>Remove</button>
+      <div className='item-info' >
+        <h4>{item.product.name}</h4>
+        <p>{item.product.price}€</p>
+      </div>
+      <button className='btn' onClick={() => removeFromCart()}>Remove</button>
     </div>
   )
 }
